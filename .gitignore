@@ -1,0 +1,10 @@
+# Hallucination Taxonomy Project
+.env
+__pycache__/
+*.csv
+*.json
+*.png
+*.txt
+hallucination_env/
+.ipynb_checkpoints/
+scratch/
