@@ -3,7 +3,9 @@
 __pycache__/
 *.csv
 *.json
+# Ignore all png except final figures
 *.png
+!final_figures/*.png
 *.txt
 hallucination_env/
 .ipynb_checkpoints/
