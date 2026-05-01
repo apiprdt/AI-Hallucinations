@@ -123,8 +123,8 @@ def bootstrap_stability(checkpoint_file: str, n_bootstraps=1000, seed=42):
     sns.despine(top=True, right=True)
     
     plt.tight_layout()
-    plt.savefig('figure4_bootstrap_stability.png', dpi=300, bbox_inches='tight')
-    print("\nSaved figure4_bootstrap_stability.png")
+    plt.savefig('hallucination-paper-overleaf/figures/figure4_bootstrap_stability.png', dpi=300, bbox_inches='tight')
+    print("\nSaved hallucination-paper-overleaf/figures/figure4_bootstrap_stability.png")
 
 if __name__ == "__main__":
     bootstrap_stability("data/processed/results_bbbp_checkpoint.json")
