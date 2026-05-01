@@ -169,9 +169,12 @@ def figure1_performance(df):
     ax.set_yticks(y_pos)
     ax.set_yticklabels(sorted_labels, fontsize=9)
     ax.set_xlabel('ROC-AUC Score')
-    ax.set_xlim(0.45, 0.72)
+    ax.set_xlim(0.45, 0.74)  # Extended x-axis to give legend more room
     ax.set_title('Performance Across Hallucination Conditions (BBBP)', pad=15, fontweight='bold')
-    ax.legend(loc='lower right', framealpha=0.9, edgecolor='#cccccc')
+    
+    # Made legend slightly smaller and more compact
+    ax.legend(loc='lower right', framealpha=0.9, edgecolor='#cccccc', 
+              fontsize=9, borderaxespad=0.8, handletextpad=0.5, borderpad=0.4)
     
     # Light grid on x-axis only
     ax.xaxis.grid(True, linestyle=':', alpha=0.3, zorder=0)
