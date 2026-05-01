@@ -65,13 +65,14 @@ GROQ_API_KEY=your_api_key_here
 
 ### 4. Reproducing the Experiment
 
-To ensure deterministic reproducibility, the following execution order and seeds must be used.
+To ensure deterministic reproducibility, the following execution order and seeds must be used. We provide the static dataset containing all pre-generated augmentations used in our evaluation to guarantee exact reproducibility, as the hallucination generation step was stochastic.
 
-**Random Seeds:**
-- Scaffold Split Seed: DeepChem default (determinstic based on Bemis-Murcko scaffolds)
-- LLM Generation Seed: `42` for prediction queries, no fixed seed for hallucination generation
-- Baseline Random Forest Seed: `42`
-- Bootstrap Resampling Seed: `42`
+**Reproducibility Parameters:**
+- Scaffold Split: DeepChem default (deterministic based on Bemis-Murcko scaffolds)
+- LLM Generation: Temperature $0.9$ without a fixed seed. The exact outputs used in the paper are provided in the `data/` directory.
+- Prediction Queries: Temperature $0.0$, Seed `42`.
+- Traditional ML Baseline: Random Forest Seed `42`.
+- Bootstrap Resampling: 1,000 iterations, Seed `42`.
 
 **Execution Order:**
 

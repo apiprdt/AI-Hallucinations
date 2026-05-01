@@ -19,7 +19,7 @@ Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among taxonomy
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/figure4_bootstrap_stability.png}
-    \caption{Distribution of bootstrapped ROC-AUC scores (1,000 resamples) on the BBBP test set. The dashed line represents the median baseline (C0) performance. Structural Phantom (C4a) exhibits a stable distributional shift above baseline.}
+    \caption{Bootstrapped ROC-AUC distributions demonstrate the statistical stability of Structural Phantom (C4a) hallucination gains relative to the SMILES baseline (C0) on the BBBP dataset.}
     \label{fig:bootstrap}
 \end{figure}
 
@@ -34,7 +34,7 @@ Under hallucination conditions on BACE, the distribution of predicted probabilit
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/figure3_negativity_collapse.png}
-    \caption{Prediction probability distributions on BACE under baseline (C0) and free hallucination (C3) conditions. Under C3, predictions collapse to a narrow distribution centered near $p \approx 0.17$, eliminating discriminative capacity.}
+    \caption{Hallucination augmentation induces pronounced distributional compression on the BACE task, shifting the baseline bimodal prediction distribution toward a non-discriminative narrow peak near $p \approx 0.17$.}
     \label{fig:negativity}
 \end{figure}
 
@@ -44,13 +44,13 @@ Analysis of 356 naturally generated hallucinations across both datasets revealed
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/figure2_taxonomy_distribution.png}
-    \caption{Distribution of hallucination types among naturally generated (C3) descriptions on BBBP, classified by the rule-based taxonomy. CC dominates at $\sim$80\%, while SP accounts for $\sim$2.4\%.}
+    \caption{Free hallucinations exhibit a pronounced distributional bias toward generic Contextual Confabulation (CC), with structurally grounded perturbations (SP) occurring rarely despite their stronger association with predictive performance.}
     \label{fig:taxonomy}
 \end{figure}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
-    \caption{ROC-AUC scores across nine experimental conditions on BBBP. Dashed line indicates baseline (C0) performance. SP hallucination (C4a) yields the highest observed ROC-AUC; the shuffled control (C5) aligns with baseline.}
+    \caption{Task-dependent divergence in hallucination sensitivity across perturbation conditions, with structurally grounded (SP) hallucination associated with the largest discriminative improvement on BBBP.}
     \label{fig:performance}
 \end{figure}
