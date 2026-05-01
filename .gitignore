@@ -3,10 +3,18 @@
 __pycache__/
 *.csv
 *.json
-# Ignore all png except final figures
+
+# Figures
 *.png
 !final_figures/*.png
+
+# Documentation & Examples
 *.txt
+!requirements.txt
+!examples/*.txt
+!prompts/*.txt
+!prompts/*.md
+
 hallucination_env/
 .ipynb_checkpoints/
 scratch/

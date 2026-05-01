@@ -1,0 +1,13 @@
+groq
+rdkit
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+python-dotenv
+tqdm
+scipy
+statsmodels
+deepchem
+tensorflow

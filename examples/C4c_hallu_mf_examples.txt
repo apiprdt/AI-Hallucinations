@@ -1,0 +1,17 @@
+--- 3 Examples for Condition: C4c_hallu_mf ---
+
+Example 1:
+SMILES: CCOC(=O)[C@H](CCc1ccccc1)N[C@@H](C)C(=O)N2CCC[C@H]2C(O)=O
+Label: 0.0
+Prediction: 0.2
+--------------------
+Example 2:
+SMILES: FC(F)(F)[C@]1(OC(=O)Nc2ccc(Cl)cc12)C#CC3CC3
+Label: 0.0
+Prediction: 0.65
+--------------------
+Example 3:
+SMILES: CN1C[C@@H](C[C@H]2[C@H]1Cc3c[nH]c4cccc2c34)C(=O)N[C@]5(C)O[C@@]6(O)[C@@H]7CCCN7C(=O)[C@H](Cc8ccccc8)N6C5=O
+Label: 0.0
+Prediction: 0.35
+--------------------
