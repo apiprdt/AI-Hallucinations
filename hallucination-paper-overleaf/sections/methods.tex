@@ -1,8 +1,8 @@
 \section{Methods}
 \label{sec:methods}
 
-\subsection{Hallucination Taxonomy}
-We define a four-category taxonomy of molecular hallucinations, each operationally detectable through rule-based classification using RDKit~\cite{landrum2016rdkit} as the ground-truth engine. We emphasize that this taxonomy is a heuristic tool for structured perturbation analysis, not an exhaustive semantic ontology. The keyword sets were intentionally constrained to maintain interpretability and reproducibility rather than maximize coverage. The categories are mutually exclusive and applied in priority order (SP $>$ PI $>$ MF $>$ CC):
+\subsection{Operational Categorization Scheme}
+We utilize an operational categorization scheme for molecular hallucinations, each type detectable through rule-based classification using RDKit~\cite{landrum2016rdkit} as the ground-truth engine. We emphasize that this scheme is a heuristic tool for structured perturbation analysis, not an exhaustive semantic ontology. The keyword sets were intentionally constrained to maintain interpretability and reproducibility rather than maximize coverage. The categories are mutually exclusive and applied in priority order (SP $>$ PI $>$ MF $>$ CC):
 
 \begin{itemize}
     \item \textbf{Structural Phantom (SP):} The generated text references chemical elements or functional groups that are absent from the molecular structure. Detection: for a predefined heuristic dictionary of element keywords (e.g., ``fluorine'', ``fluoro''), we check whether the corresponding element is present in the molecule's atom set via \texttt{mol.GetAtoms()}. If a keyword matches but the element is absent, the description is classified as SP.
