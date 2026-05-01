@@ -162,7 +162,9 @@ def figure1_performance(df):
         # Place the text slightly after the end of the error bar so it's not crossed out
         text_x = val + ci_upper + 0.005
         ax.text(text_x, bar.get_y() + bar.get_height()/2, 
-                f'{val:.3f}', va='center', ha='left', fontsize=9, color='#333333')
+                f'{val:.3f}', va='center', ha='left', fontsize=9, color='#333333',
+                bbox=dict(facecolor='white', edgecolor='none', pad=1.0, alpha=0.8),
+                zorder=4)
     
     ax.set_yticks(y_pos)
     ax.set_yticklabels(sorted_labels, fontsize=9)
