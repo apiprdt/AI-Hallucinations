@@ -154,7 +154,8 @@ def figure1_performance(df):
     
     # Chance level
     ax.axvline(x=0.5, color='#cccccc', linestyle=':', linewidth=0.8, zorder=1)
-    ax.text(0.502, len(CONDITIONS) - 0.5, 'chance', fontsize=8, color='#999999', va='top')
+    # Place 'chance' text below the bottom bar to avoid overlap
+    ax.text(0.502, -0.6, 'chance', fontsize=8, color='#999999', va='center', style='italic')
     
     # Value annotations
     for i, (bar, val, ci_upper) in enumerate(zip(bars, sorted_aucs, sorted_ci[1])):
