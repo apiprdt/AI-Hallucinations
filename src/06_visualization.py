@@ -74,8 +74,8 @@ def create_visualizations(checkpoint_file: str):
     sns.despine(top=True, right=True)
     
     plt.tight_layout()
-    plt.savefig('figure1_performance_comparison.png', dpi=300, bbox_inches='tight')
-    print("Saved figure1_performance_comparison.png")
+    plt.savefig('hallucination-paper-overleaf/figures/figure1_performance_comparison.png', dpi=300, bbox_inches='tight')
+    print("Saved hallucination-paper-overleaf/figures/figure1_performance_comparison.png")
 
     # 3. Taxonomy Distribution Pie Chart
     plt.figure(figsize=(10, 8))
@@ -86,8 +86,8 @@ def create_visualizations(checkpoint_file: str):
             colors=sns.color_palette("plasma", len(tax_counts)), wedgeprops={'edgecolor': 'black'})
     plt.title('Distribution of Hallucination Types (C3 Free)', fontsize=16)
     plt.tight_layout()
-    plt.savefig('taxonomy_distribution.png', dpi=300)
-    print("Saved taxonomy_distribution.png")
+    plt.savefig('hallucination-paper-overleaf/figures/figure2_taxonomy_distribution.png', dpi=300)
+    print("Saved hallucination-paper-overleaf/figures/figure2_taxonomy_distribution.png")
 
     # 4. Confidence/Probability Heatmap
     sorted_df = df.sort_values(by=['label', 'C0_pure'])
@@ -105,8 +105,8 @@ def create_visualizations(checkpoint_file: str):
     plt.legend(loc='upper right')
     
     plt.tight_layout()
-    plt.savefig('probability_heatmap.png', dpi=300)
-    print("Saved probability_heatmap.png")
+    plt.savefig('hallucination-paper-overleaf/figures/probability_heatmap.png', dpi=300)
+    print("Saved hallucination-paper-overleaf/figures/probability_heatmap.png")
 
 if __name__ == "__main__":
     checkpoint_file = "data/processed/results_bbbp_checkpoint.json"
