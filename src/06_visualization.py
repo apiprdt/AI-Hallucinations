@@ -6,9 +6,9 @@ import os
 import json
 from sklearn.metrics import roc_auc_score
 
-# Set style for premium look
-plt.style.use('dark_background')
-sns.set_palette("viridis")
+# Set style for academic premium look (white background)
+plt.style.use('default')
+sns.set_theme(style="ticks", font_scale=1.1)
 
 def load_data(checkpoint_file: str):
     with open(checkpoint_file, 'r') as f:
