@@ -1,0 +1,10 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This exploratory study provides empirical evidence that the type of hallucination---not merely its presence---is associated with differential outcomes in LLM-augmented molecular property prediction. Through a controlled nine-condition ablation using a four-category taxonomy, we observe that Structural Phantom (SP) hallucinations exhibit the strongest predictive association on the BBBP physicochemical task (ROC-AUC 0.626 vs.\ 0.533 baseline), despite being naturally underproduced by the model (approximately 2.4\% of free hallucinations). Conversely, on the BACE enzymatic task, hallucination augmentation consistently degraded performance, suggesting that augmentation utility is sensitive to the alignment between the perturbation and the task's knowledge requirements.
+
+Our shuffled semantic control (C5) provides evidence that the observed gains on BBBP are not attributable solely to scientific writing style, as disrupting molecule-description alignment eliminates discriminative improvement while preserving linguistic register.
+
+These findings should be interpreted cautiously given the limited scope of this pilot study: a single LLM, two datasets, and single-split evaluation. We do not propose hallucination augmentation as a practical technique, nor do we claim to have identified the causal mechanism underlying the observed effects. Rather, this work aims to provide a structured empirical characterization that can guide future investigation into when and why semantic perturbations affect LLM-based molecular reasoning.
+
+\paragraph{Future directions.} Key extensions include: (1) multi-model validation across diverse LLM architectures, (2) larger-scale evaluation with cross-validation, (3) refinement of the CC residual category, (4) investigation of the prediction collapse phenomenon on additional enzymatic datasets, and (5) comparison with fine-tuned and traditional ML baselines to contextualize the practical significance of the observed effects.

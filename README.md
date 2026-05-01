@@ -2,24 +2,47 @@
 
 **A Taxonomy-Controlled Ablation Study on LLM-Augmented Molecular Property Prediction**
 
-This repository contains the code and datasets for the research project investigating the impact of different hallucination types on molecular property prediction using Large Language Models (LLMs).
+This repository contains the code and datasets for a pilot study investigating how different types of LLM-generated hallucinations affect molecular property prediction performance.
 
 ## 🧪 Overview
 
-Recent studies reported that hallucinated molecular descriptions can improve prediction performance. This project deconstructs this effect using a formal **Hallucination Taxonomy** and a 9-condition ablation study.
+Recent studies reported that hallucinated molecular descriptions can improve prediction performance. This project deconstructs this effect using a formal **Hallucination Taxonomy** and a 9-condition controlled ablation study across two MoleculeNet benchmarks (BBBP and BACE).
 
-### Key Findings:
-- **Lazy Architect Effect**: LLMs naturally favor generic hallucinations, but specific "Structural Phantom" hallucinations provide the highest utility.
-- **Negativity Collapse**: Hallucinations can severely degrade performance in specific tasks (e.g., enzymatic inhibition) through signal destruction.
-- **Semantic Alignment**: Improvements are driven by semantic relevance, not just scientific writing style.
+### Key Observations:
+- **Distributional Bias**: LLMs naturally favor generic Contextual Confabulation (~80%), but rare Structural Phantom hallucinations exhibit the strongest predictive association on BBBP.
+- **Prediction Collapse**: On BACE (enzyme inhibition), hallucination augmentation degrades performance, collapsing prediction distributions.
+- **Semantic vs Style**: A circular-shift control demonstrates that scientific writing style alone does not account for observed gains.
 
 ## 📁 Repository Structure
-- `hallucination.py`: Core engine for taxonomy-based hallucination generation.
-- `04_experiment_runner.py`: Main execution script for the ablation study.
-- `05_analysis.py`: Statistical analysis and visualization pipeline.
-- `prompts/`: Example prompts used in various conditions.
-- `examples/`: Actual output examples for each condition.
-- `final_figures/`: High-resolution research figures.
+
+```
+HallucinationProject/
+├── src/                          # Core source code
+│   ├── taxonomy_classifier.py    # Hallucination taxonomy engine (SP/PI/MF/CC)
+│   ├── data_prep.py              # Dataset loading & factual description generation
+│   ├── run_bbbp.py               # Main experiment runner (all 9 conditions)
+│   ├── 01_baseline.py            # Non-LLM baseline (Random Forest)
+│   ├── statistics.py             # Statistical analysis (bootstrap AUC tests)
+│   ├── 06_visualization.py       # Figure generation
+│   ├── print_report.py           # Quick report printer
+│   ├── fase1_runner.py           # C2b pure gibberish runner
+│   ├── audit_c2.py               # C2 vocabulary audit
+│   ├── verify_c5.py              # C5 shuffle verification
+│   └── verify_spearman.py        # Spearman correlation check
+├── hallucination-paper-overleaf/ # LaTeX paper (canonical)
+│   ├── main.tex                  # Main document
+│   ├── sections/                 # Paper sections
+│   ├── tables/                   # LaTeX tables
+│   ├── figures/                  # Publication figures
+│   └── references.bib            # Bibliography (20 references)
+├── scratch/                      # Exploratory scripts
+├── data/                         # Raw and processed data
+├── figures/                      # Generated figures
+├── examples/                     # Output examples per condition
+├── prompts/                      # Prompt documentation
+├── requirements.txt              # Python dependencies
+└── README.md                     # This file
+```
 
 ## 🚀 Getting Started
 
@@ -29,11 +52,8 @@ Recent studies reported that hallucinated molecular descriptions can improve pre
 
 ### 2. Installation
 ```bash
-# Clone the repository
 git clone https://github.com/apiprdt/AI-Hallucinations.git
 cd AI-Hallucinations
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -41,32 +61,61 @@ pip install -r requirements.txt
 Create a `.env` file in the root directory:
 ```env
 GROQ_API_KEY=your_api_key_here
-MODEL_NAME=llama-3.1-8b-instant
 ```
 
-### 4. Running the Experiment
-To run the full prediction pipeline for a dataset (e.g., BBBP):
+### 4. Reproducing the Experiment
+
+**Step 1: Prepare data**
 ```bash
-python 04_experiment_runner.py
+python src/data_prep.py
 ```
 
-To analyze results and generate figures:
+**Step 2: Run the experiment (BBBP)**
 ```bash
-python 05_analysis.py
+python src/run_bbbp.py
+```
+
+**Step 3: Analyze results**
+```bash
+python src/statistics.py results_bbbp_checkpoint.json
+```
+
+**Step 4: Generate figures**
+```bash
+python src/06_visualization.py
 ```
 
 ## 📊 Experimental Conditions
-We evaluate 9 distinct conditions:
-- **C0**: Baseline (SMILES only)
-- **C1**: Factual (RDKit-derived)
-- **C2**: Style Control (Structured Gibberish)
-- **C3**: Free Hallucination (Dresden Replication)
-- **C4a-c**: Taxonomy-specific hallucinations (Structural, Property, Mechanism)
-- **C5**: Semantic Control (Shuffled Descriptions)
+| Code | Condition | Description |
+|------|-----------|-------------|
+| C0   | Baseline  | SMILES only |
+| C1   | Factual   | RDKit-derived descriptors |
+| C2   | Chem Priming | Gibberish with chemical vocabulary |
+| C2b  | Pure Gibberish | Gibberish without chemical vocabulary |
+| C3   | Free Hallucination | Unconstrained LLM hallucination |
+| C4a  | Structural Phantom | Structure-focused hallucination |
+| C4b  | Property Inversion | Property-focused hallucination |
+| C4c  | Mechanism Fabrication | Mechanism-focused hallucination |
+| C5   | Shuffled | Circular-shift semantic control |
+
+## ⚠️ Limitations
+This is an **exploratory pilot study** with important constraints:
+- Single model (Llama-3.1-8B-Instant)
+- Single scaffold-split evaluation (no cross-validation)
+- Limited sample sizes (BBBP N=204, BACE N=152)
+
+See the paper's Limitations section for full details.
 
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Citation
-If you use this work in your research, please cite:
-*[Your Name et al.], "Hallucination Type Matters: A Taxonomy-Controlled Ablation Study", 2026.*
+```bibtex
+@article{hallucination2026taxonomy,
+  title={Hallucination Type Matters: A Taxonomy-Controlled Ablation Study 
+         on LLM-Augmented Molecular Property Prediction},
+  author={Anonymous},
+  journal={arXiv preprint},
+  year={2026}
+}
+```

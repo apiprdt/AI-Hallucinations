@@ -1,0 +1,74 @@
+\section{Appendix}
+\label{sec:appendix}
+
+\subsection{Prompt Templates}
+All prediction tasks used the following zero-shot prompt structure with temperature $= 0.0$, \texttt{max\_tokens} $= 10$, and seed $= 42$:
+
+\begin{verbatim}
+Given this molecule (SMILES: {smiles})
+[Additional information: {augmentation}]
+
+On a scale of 0 to 1, what is the probability
+that this molecule can {task_description}?
+Respond with ONLY a number between 0 and 1.
+Nothing else.
+\end{verbatim}
+
+The augmentation line is omitted for C0. Task descriptions: ``penetrate the blood-brain barrier'' (BBBP), ``inhibit the BACE-1 enzyme'' (BACE).
+
+Hallucination generation used temperature $= 0.9$, \texttt{max\_tokens} $= 150$, with the following type-specific prompts:
+
+\paragraph{C3 (Free Hallucination):}
+\textit{``You are a speculative chemist. Given SMILES: \{smiles\}. Generate a creative, scientifically-sounding description of this molecule's potential properties and biological mechanisms. Be creative and speculative. Write 2--3 sentences only.''}
+
+\paragraph{C4a (Structural Phantom):}
+\textit{``Given SMILES: \{smiles\}. Describe the structural features, functional groups, and atomic composition. Be specific and speculative.''}
+
+\paragraph{C4b (Property Inversion):}
+\textit{``Given SMILES: \{smiles\}. Describe its solubility, lipophilicity, and membrane permeability with specific values.''}
+
+\paragraph{C4c (Mechanism Fabrication):}
+\textit{``Given SMILES: \{smiles\}. Hypothesize biological targets and cellular mechanisms. Be specific about protein targets.''}
+
+\subsection{Control Condition Templates}
+
+\paragraph{C2 (Chemical Priming):}
+Template-generated text using scientific vocabulary:
+\textit{``This compound exhibits \{adj\} structural coherence with \{noun\} interaction domains, demonstrating \{adj\} physicochemical characteristics under \{noun\} conditions.''}
+
+Adjective pool: moderate, intermediate, variable, standard, conventional, typical.
+Noun pool: hypothetical, theoretical, computational, structural, molecular, chemical.
+
+\textbf{Note:} This template contains chemical vocabulary (``structural'', ``molecular'', ``physicochemical''), making C2 a \emph{partial} stylistic control. See C2b for the stricter control.
+
+\paragraph{C2b (Pure Gibberish):}
+Template-generated text using exclusively non-chemical vocabulary:
+\textit{``This entity exhibits \{adj\} portfolio coherence with \{noun\} governance domains, demonstrating \{adj\} bureaucratic characteristics under \{noun\} conditions.''}
+
+Adjective pool: variable, standard, conventional, typical, moderate, intermediate.
+Noun pool: portfolio, transactional, governance, bureaucratic, administrative, regulatory.
+
+Vocabulary audit confirmed 0\% overlap with a curated chemical/biological term list.
+
+\subsection{Taxonomy Classifier Pseudocode}
+
+\begin{enumerate}
+    \item \textbf{SP Detection:} For each element in \{F, Cl, Br, I, P, S, N\}, check if associated keywords appear in the generated text. Cross-reference with \texttt{mol.GetAtoms()} to verify element absence. If a keyword matches an absent element, classify as SP.
+    \item \textbf{PI Detection:} Compute MolLogP via RDKit. If LogP $> 3$ and text contains ``water soluble'', ``hydrophilic'', or ``highly soluble'', classify as PI. If LogP $< 1$ and text contains ``lipophilic'', ``hydrophobic'', or ``membrane permeable'', classify as PI.
+    \item \textbf{MF Detection:} Keyword matching for 9 biological targets: ACE2, HER2, EGFR, VEGF, p53, BCL-2, COX-2, dopamine, serotonin.
+    \item \textbf{CC (Default):} If none of the above conditions trigger, classify as Contextual Confabulation.
+\end{enumerate}
+
+\subsection{Representative Hallucination Examples}
+\begin{itemize}
+    \item \textbf{SP Example (SMILES: c1ccccc1, Benzene):} ``Contains a reactive chlorine atom that enhances metabolic stability.'' (Benzene contains no chlorine atoms.)
+    \item \textbf{PI Example (SMILES: high-LogP compound):} ``This highly water-soluble molecule readily dissolves in aqueous media.'' (Contradicts computed LogP $> 3$.)
+    \item \textbf{MF Example (Diazepam):} ``Acts as a potent inhibitor of the VEGF protein kinase receptor.'' (Diazepam is a GABA receptor modulator, not a VEGF inhibitor.)
+    \item \textbf{CC Example:} ``This molecule shows promising drug-like properties and may have therapeutic applications in treating various diseases.'' (Generic, non-falsifiable.)
+\end{itemize}
+
+\subsection{API Failure Rates}
+Across the BBBP experiment (204 molecules $\times$ 9 conditions $= 1{,}836$ predictions), API failures (rate limits, parsing errors) that defaulted to $p = 0.5$ accounted for less than 2\% of total predictions. The exact count is logged in the experiment checkpoint files.
+
+\subsection{Implementation Environment}
+Experiments were executed on a local system (Windows 11) using the Groq API for LLM inference. Total runtime for the pilot study was approximately 4.5 hours. Library versions: \texttt{rdkit-pypi} v2023.9.1, \texttt{deepchem} v2.7.1, \texttt{groq} Python SDK, \texttt{scipy} v1.11, \texttt{scikit-learn} v1.3.

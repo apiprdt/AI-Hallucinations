@@ -1,0 +1,56 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Predictive Performance Across Conditions}
+
+Table~\ref{tab:results} summarizes ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets.
+
+\input{tables/results_tables}
+
+\subsubsection{BBBP (Physicochemical Task)}
+To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved an expectedly strong ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain strictly below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
+
+The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593]. Factual augmentation (C1) produced a marginal, non-significant increase to 0.540. Chemical priming (C2) yielded 0.614, while pure non-chemical gibberish (C2b) yielded 0.553.
+
+Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among taxonomy-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.612) and Property Inversion (C4b, 0.561). 
+
+\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of SP hallucination (C4a) over the LLM baseline (C0) proved highly stable, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/figure4_bootstrap_stability.png}
+    \caption{Distribution of bootstrapped ROC-AUC scores (1,000 resamples) on the BBBP test set. The dashed line represents the median baseline (C0) performance. Structural Phantom (C4a) exhibits a stable distributional shift above baseline.}
+    \label{fig:bootstrap}
+\end{figure}
+
+The circular-shift semantic control (C5) yielded 0.530 [0.454, 0.607], closely aligned with baseline C0 and substantially below C3, indicating that the scientific register of hallucinated text alone does not account for the observed gains.
+
+\subsubsection{BACE (Enzymatic Task)}
+On the BACE test set ($N=152$), a contrasting pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.656 [0.556, 0.752]. All hallucination-augmented conditions reduced performance relative to baseline. Free hallucination (C3) reduced ROC-AUC to 0.488 [0.389, 0.589], representing a substantial degradation toward near-chance behavior.
+
+\subsection{Prediction Collapse on BACE}
+Under hallucination conditions on BACE, the distribution of predicted probabilities collapsed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. This effect, which we descriptively term ``prediction collapse,'' was observed across all hallucination conditions (C3, C4a--c) and suggests systematic signal destruction rather than random noise injection.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/figure3_negativity_collapse.png}
+    \caption{Prediction probability distributions on BACE under baseline (C0) and free hallucination (C3) conditions. Under C3, predictions collapse to a narrow distribution centered near $p \approx 0.17$, eliminating discriminative capacity.}
+    \label{fig:negativity}
+\end{figure}
+
+\subsection{Hallucination Taxonomy Distribution}
+Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). Despite this low natural frequency, forced SP hallucinations (C4a) exhibited the strongest predictive association on BBBP.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/figure2_taxonomy_distribution.png}
+    \caption{Distribution of hallucination types among naturally generated (C3) descriptions on BBBP, classified by the rule-based taxonomy. CC dominates at $\sim$80\%, while SP accounts for $\sim$2.4\%.}
+    \label{fig:taxonomy}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
+    \caption{ROC-AUC scores across nine experimental conditions on BBBP. Dashed line indicates baseline (C0) performance. SP hallucination (C4a) yields the highest observed ROC-AUC; the shuffled control (C5) aligns with baseline.}
+    \label{fig:performance}
+\end{figure}

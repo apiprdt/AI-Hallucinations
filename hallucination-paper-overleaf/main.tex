@@ -1,0 +1,56 @@
+\documentclass{article}
+
+% --- Packages ---
+\usepackage[preprint]{neurips_2024} % Using NeurIPS style in preprint mode
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{cleveref} % For smart referencing
+\usepackage{verbatim}
+
+% --- Title & Author ---
+\title{Hallucination Type Matters: A Taxonomy-Controlled Ablation Study on LLM-Augmented Molecular Property Prediction}
+
+\author{
+  Anonymous \\
+  Independent Researcher \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\input{sections/intro}
+\input{sections/related_work}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\section*{Code Availability}
+The complete codebase, datasets, and high-resolution figures are available at: \url{https://github.com/apiprdt/AI-Hallucinations}
+
+\section*{Acknowledgments}
+The author acknowledges the use of Llama-3.1-8B-Instant (via Groq API) for hallucination generation and molecular prediction inference. Large language models were also used for assistance in drafting and revising sections of this manuscript.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\newpage
+\appendix
+\input{sections/appendix}
+
+\end{document}

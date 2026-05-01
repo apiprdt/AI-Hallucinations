@@ -8,7 +8,7 @@ with open("results_bbbp_checkpoint.json", "r") as f:
 results_list = [ckpt["results"][str(i)] for i in range(ckpt["metadata"]["total_molecules"])]
 df = pd.DataFrame(results_list)
 
-conditions = ['C0_pure', 'C1_factual', 'C2_gibberish', 'C3_hallu_free', 'C4a_hallu_sp', 'C4b_hallu_pi', 'C4c_hallu_mf', 'C5_shuffled']
+conditions = ['C0_pure', 'C1_factual', 'C2_chempriming', 'C2b_pure_gibberish', 'C3_hallu_free', 'C4a_hallu_sp', 'C4b_hallu_pi', 'C4c_hallu_mf', 'C5_shuffled']
 
 results = []
 for cond in conditions:

@@ -1,0 +1,22 @@
+\section{Limitations}
+\label{sec:limitations}
+
+This study has several important limitations that constrain the generalizability and interpretability of its findings.
+
+\paragraph{Single model.} All experiments were conducted with a single LLM (Llama-3.1-8B-Instant via Groq API). The observed effects---including the distributional bias toward CC hallucinations and the task-dependent performance asymmetry---may be specific to this model family, parameter count, or inference backend. Validation across architecturally diverse models (e.g., GPT-4, Claude, Gemini, or larger Llama variants) is necessary before broader conclusions can be drawn.
+
+\paragraph{Single-split evaluation.} Results are based on a single scaffold-split test set for each dataset (BBBP $N=204$, BACE $N=152$) without cross-validation. This makes the reported ROC-AUC values sensitive to the specific test partition and limits confidence in the stability of the observed rankings.
+
+\paragraph{Limited sample size.} With 204 and 152 molecules respectively, this study is underpowered for detecting small but potentially meaningful effect size differences between conditions. The SP category comprised only 5 naturally occurring instances in BBBP, making any distributional claims about SP highly tentative.
+
+\paragraph{C2 control confound.} The chemical priming condition (C2) contains domain-relevant vocabulary (``structural'', ``molecular'', ``physicochemical''), making it a partial rather than pure stylistic control. While C2b addresses this with non-chemical vocabulary, the C2 results should be interpreted with this confound in mind.
+
+\paragraph{Residual taxonomy category.} The Contextual Confabulation (CC) category functions as a catch-all residual class for descriptions that do not trigger SP, PI, or MF detection rules. This category likely encompasses heterogeneous subtypes with different functional properties, and its homogeneous treatment may obscure important variation.
+
+\paragraph{Data leakage risk.} The Llama-3.1 pre-training corpus may include MoleculeNet datasets or related molecular property data. We cannot rule out that the model's predictions reflect memorized associations rather than genuine zero-shot inference. This risk applies to all conditions but may differentially affect conditions where hallucinated text inadvertently retrieves memorized information.
+
+\paragraph{API non-determinism.} Despite setting temperature $= 0.0$ and seed $= 42$, Groq's API documentation notes that seed-based reproducibility is provided on a best-effort basis. Exact numerical reproducibility across runs is therefore not guaranteed.
+
+\paragraph{Dataset scope.} Only two MoleculeNet benchmarks were evaluated, representing physicochemical (BBBP) and enzymatic (BACE) prediction tasks. Generalization to other task types (e.g., toxicity, solubility, protein binding) remains untested.
+
+\paragraph{No fine-tuning baseline.} We evaluate only zero-shot LLM inference. Comparison with fine-tuned models or traditional ML baselines (e.g., random forests on molecular fingerprints) would provide important context for the practical significance of the observed effects.
