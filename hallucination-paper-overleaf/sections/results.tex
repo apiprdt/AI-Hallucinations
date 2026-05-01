@@ -3,22 +3,29 @@
 
 \subsection{Predictive Performance Across Conditions}
 
-Table~\ref{tab:results} summarizes ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets.
+Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets.
 
 \input{tables/results_tables}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
+    \caption{Task-dependent divergence in hallucination sensitivity across perturbation conditions, with structurally grounded (SP) hallucination associated with the largest discriminative improvement on BBBP.}
+    \label{fig:performance}
+\end{figure}
 
 \subsubsection{BBBP (Physicochemical Task)}
 To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved an expectedly strong ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain strictly below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
 
 The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593]. Factual augmentation (C1) produced a marginal, non-significant increase to 0.540. Chemical priming (C2) yielded 0.614, while pure non-chemical gibberish (C2b) yielded 0.553.
 
-Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among taxonomy-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.612) and Property Inversion (C4b, 0.561). 
+Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among category-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.612) and Property Inversion (C4b, 0.561). 
 
 \paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of SP hallucination (C4a) over the LLM baseline (C0) proved highly stable, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/figure4_bootstrap_stability.png}
+    \includegraphics[width=0.8\linewidth]{figures/figure2_bootstrap_stability.png}
     \caption{Bootstrapped ROC-AUC distributions demonstrate the statistical stability of Structural Phantom (C4a) hallucination gains relative to the SMILES baseline (C0) on the BBBP dataset.}
     \label{fig:bootstrap}
 \end{figure}
@@ -38,19 +45,12 @@ Under hallucination conditions on BACE, the distribution of predicted probabilit
     \label{fig:negativity}
 \end{figure}
 
-\subsection{Hallucination Taxonomy Distribution}
+\subsection{Distribution of Hallucination Types}
 Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). Despite this low natural frequency, forced SP hallucinations (C4a) exhibited the strongest predictive association on BBBP.
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/figure2_taxonomy_distribution.png}
+    \includegraphics[width=0.8\linewidth]{figures/figure4_taxonomy_distribution.png}
     \caption{Free hallucinations exhibit a pronounced distributional bias toward generic Contextual Confabulation (CC), with structurally grounded perturbations (SP) occurring rarely despite their stronger association with predictive performance.}
     \label{fig:taxonomy}
-\end{figure}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
-    \caption{Task-dependent divergence in hallucination sensitivity across perturbation conditions, with structurally grounded (SP) hallucination associated with the largest discriminative improvement on BBBP.}
-    \label{fig:performance}
 \end{figure}
