@@ -1,34 +1,34 @@
 \section{Discussion}
 \label{sec:discussion}
 
-We organize this discussion by explicitly separating empirical observations from interpretive speculation, and by identifying alternative explanations where appropriate.
+We organize this discussion by explicitly separating empirical observations from interpretive speculation, identifying alternative explanations, and establishing rigorous boundaries for our claims.
 
 \subsection{Distributional Bias in Hallucination Generation}
-\paragraph{Observation.} Across both datasets, naturally generated hallucinations (C3) are overwhelmingly classified as Contextual Confabulation (CC, $\sim$80\%), with Structural Phantom (SP) accounting for only 1.3--2.4\% of outputs. Despite this, forced SP hallucinations (C4a) exhibited the highest ROC-AUC on BBBP.
+\paragraph{Observation.} Across both datasets, naturally generated hallucinations (C3) are overwhelmingly classified as Contextual Confabulation (CC, $\sim$80\%), with Structural Phantom (SP) accounting for only 1.3--2.4\% of outputs. Despite this rarity, forced SP hallucinations (C4a) exhibited the strongest positive association with ROC-AUC on BBBP.
 
-\paragraph{Interpretation.} We refer to this distributional asymmetry as the ``Lazy Architect'' pattern: the model preferentially generates generic, plausible scientific narratives rather than structurally specific perturbations. This labeling is purely descriptive and does not imply a causal mechanism within the model architecture.
+\paragraph{Interpretation.} We characterize this distributional asymmetry as a generative bias toward generic, scientifically plausible narratives over structurally specific confabulations. This labeling is purely descriptive and does not imply a causal generative mechanism within the LLM architecture.
 
-\paragraph{Alternative explanations.} The low SP rate may reflect prompt design rather than an intrinsic model bias. Different prompt formulations or higher temperatures might elicit more structurally specific outputs. Additionally, our rule-based classifier may undercount SP instances if the generated text uses structural language not captured by our keyword set.
+\paragraph{Alternative Explanations.} The low SP rate may reflect prompt design interactions rather than an intrinsic model bias; different prompt formulations or higher temperatures might elicit more structurally specific outputs. Additionally, our rule-based classifier may conservatively undercount SP instances if the generated text employs structural synonyms not captured by our heuristic keyword dictionary.
 
 \subsection{Task-Dependent Asymmetry}
-\paragraph{Observation.} On BBBP, hallucination augmentation (C3, C4a--c) improved ROC-AUC relative to baseline. On BACE, all hallucination conditions degraded performance, with C3 reducing ROC-AUC from 0.656 to 0.488. The BACE prediction distribution collapsed from a bimodal pattern to a narrow unimodal distribution centered near $p \approx 0.17$.
+\paragraph{Observation.} On BBBP, hallucination augmentation (C3, C4a--c) was associated with improved ROC-AUC relative to the SMILES-only baseline. Conversely, on BACE, all hallucination conditions degraded performance, with C3 reducing ROC-AUC from 0.656 to 0.488. The BACE prediction distribution exhibited pronounced compression, shifting from a bimodal pattern to a narrow unimodal distribution centered near $p \approx 0.17$.
 
-\paragraph{Interpretation.} We describe the BACE phenomenon as ``prediction collapse''---a systematic compression of predicted probabilities that destroys discriminative signal. One possible explanation is that LLM priors for physicochemical properties (relevant to BBB permeability) are better calibrated than priors for enzymatic inhibition (BACE-1), leading to constructive perturbation in the former case and destructive perturbation in the latter.
+\paragraph{Interpretation.} This task-dependent asymmetry suggests that hallucination utility is highly sensitive to the target domain. One plausible interpretation is that the LLM's pre-training corpus contains more robust latent representations of general physicochemical properties (relevant to BBBP) than specific enzymatic mechanisms (BACE), leading to constructive textual perturbation in the former and destructive interference in the latter.
 
-\paragraph{Alternative explanations.} The BACE performance degradation may also reflect: (1) dataset-specific class imbalance interacting with the hallucination text, (2) the LLM's pre-training corpus containing more BBB-related than BACE-related molecular knowledge, or (3) differences in molecular complexity between the two datasets affecting how the model processes augmented prompts. We cannot distinguish among these explanations with the current experimental design.
+\paragraph{Alternative Explanations.} We emphasize that these observed gains on BBBP do not demonstrate that hallucinations enhance genuine molecular reasoning. The improvements may partially reflect latent statistical correlations introduced by textual perturbation that happen to align with the BBBP task distribution. The BACE degradation may similarly reflect dataset-specific class imbalance interacting adversely with the hallucinated text, or differences in intrinsic molecular complexity between the two datasets. We cannot distinguish among these mechanisms with the current experimental design.
 
 \subsection{Semantic Content vs.\ Stylistic Priming}
-\paragraph{Observation.} The circular-shift control (C5) preserved scientific register while disrupting molecule-description semantic alignment. C5 produced no improvement over baseline (ROC-AUC 0.530 vs.\ 0.533 for C0), despite using text that is linguistically indistinguishable from C3 hallucinations.
+\paragraph{Observation.} The circular-shift control (C5) preserved scientific register while disrupting molecule-description semantic alignment. C5 produced no discriminative improvement over baseline (ROC-AUC 0.530 vs.\ 0.533 for C0), despite utilizing text that is linguistically indistinguishable from C3 hallucinations.
 
-\paragraph{Interpretation.} This dissociation suggests that the discriminative gains observed under C3 are not attributable solely to scientific writing style or prompt length, but depend on some degree of semantic relationship between the description and the target molecule.
+\paragraph{Interpretation.} This dissociation is consistent with the hypothesis that the performance shifts observed under C3 are not attributable solely to generic scientific writing style or prompt length, but depend on some degree of semantic interaction between the description and the target molecule.
 
-\paragraph{Caveat.} The C5 control uses a simple circular shift ($i \to i+1$), which means adjacent molecules in the dataset receive nearly-adjacent hallucinations. If structurally similar molecules are adjacent (e.g., due to dataset ordering), C5 may retain partial semantic relevance. A fully randomized permutation would provide a stronger control, though we note that our datasets use scaffold-split ordering which reduces this risk.
+\paragraph{Boundary.} The C5 control uses a simple circular shift ($i \to i+1$). While our use of scaffold-split ordering reduces the risk of adjacent molecules sharing high structural similarity, C5 may still retain partial semantic relevance if structurally related molecules remain proximal in the dataset. Future work should employ fully randomized permutations or adversarial embeddings for stronger isolation.
 
-\subsection{What This Study Does Not Establish}
-To prevent overinterpretation, we explicitly note the following non-claims:
+\subsection{Scope and Limitations}
+To prevent overinterpretation, we explicitly bound our claims:
 \begin{itemize}
-    \item We do not establish a \emph{causal mechanism} for why hallucinations affect LLM predictions. Our results are correlational within the evaluated framework.
-    \item We do not claim that SP hallucinations are universally superior. This observation is limited to a single physicochemical task (BBBP) with a single model.
-    \item We do not propose hallucination augmentation as a practical method for molecular property prediction. The observed effects may be artifacts of the zero-shot evaluation setting.
-    \item We do not claim that the taxonomy is exhaustive. The CC category is a residual class, and finer-grained taxonomies may reveal additional structure.
+    \item We report observational associations within a controlled perturbation framework; we do not establish a causal mechanism for how hallucinations alter LLM predictions.
+    \item The observed utility of structurally grounded (SP) perturbations is strictly bounded to the BBBP dataset, the tested prompt templates, and the Llama-3.1-8B model. We do not claim this represents a generalized phenomenon.
+    \item We do not propose hallucination augmentation as a practical, deployable method for molecular property prediction. The observed effects may be artifacts of the zero-shot evaluation setting rather than robust indicators of reasoning capacity.
+    \item The proposed heuristic taxonomy is operational, not exhaustive. The CC category is a residual class, and finer-grained semantic ontologies are required for comprehensive analysis.
 \end{itemize}
