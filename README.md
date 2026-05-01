@@ -65,25 +65,43 @@ GROQ_API_KEY=your_api_key_here
 
 ### 4. Reproducing the Experiment
 
-**Step 1: Prepare data**
+To ensure deterministic reproducibility, the following execution order and seeds must be used.
+
+**Random Seeds:**
+- Scaffold Split Seed: DeepChem default (determinstic based on Bemis-Murcko scaffolds)
+- LLM Generation Seed: `42` for prediction queries, no fixed seed for hallucination generation
+- Baseline Random Forest Seed: `42`
+- Bootstrap Resampling Seed: `42`
+
+**Execution Order:**
+
+**Step 1: Prepare factual descriptions and setup dataset structures**
 ```bash
 python src/data_prep.py
 ```
 
-**Step 2: Run the experiment (BBBP)**
+**Step 2: Run traditional ML Baseline (Random Forest on exact splits)**
+```bash
+python src/01_baseline.py
+```
+
+**Step 3: Run LLM ablation experiment (all 9 conditions on BBBP)**
 ```bash
 python src/run_bbbp.py
 ```
 
-**Step 3: Analyze results**
+**Step 4: Compute bootstrap stability and generate Figure 4**
 ```bash
-python src/statistics.py results_bbbp_checkpoint.json
+python src/bootstrap_stability.py
 ```
 
-**Step 4: Generate figures**
+**Step 5: Generate remaining visual figures**
 ```bash
 python src/06_visualization.py
 ```
+
+**Step 6: Compile LaTeX manuscript**
+Upload the `hallucination-paper-overleaf/` directory to Overleaf and compile using `pdflatex`.
 
 ## 📊 Experimental Conditions
 | Code | Condition | Description |
