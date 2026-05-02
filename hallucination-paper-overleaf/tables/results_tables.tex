@@ -9,19 +9,19 @@
 \textit{Traditional ML Baseline} & & & & & & & \\
 RF (Morgan FP) & 0.705 & --- & --- & & 0.893 & --- & --- \\ \midrule
 \textit{LLM Zero-Shot} & & & & & & & \\
-C0 (Baseline) & 0.533 & [0.471, 0.593] & --- & & \textbf{0.656} & [0.556, 0.752] & --- \\
-C1 (Factual) & 0.540 & [0.480, 0.603] & 0.626 & & 0.513 & [0.413, 0.612] & --- \\
-C2 (Chem.\ Priming) & 0.614 & [0.545, 0.685] & 0.074 & & 0.583 & [0.485, 0.678] & --- \\
-C2b (Pure Gibberish) & 0.553 & [0.485, 0.626] & $<$0.001 & & 0.522 & [0.423, 0.621] & --- \\ \midrule
+C0 (Baseline) & 0.533 & [0.471, 0.593] & 1.000 & & 0.674 & [0.592, 0.759] & 1.000 \\
+C1 (Factual) & 0.541 & [0.480, 0.603] & 0.846 & & 0.486 & [0.402, 0.569] & 0.011 \\
+C2 (Chem.\ Priming) & 0.613 & [0.545, 0.685] & 0.344 & & 0.522 & [0.454, 0.589] & 0.011 \\
+C2b (Pure Gibberish) & 0.553 & [0.485, 0.626] & 0.743 & & 0.623 & [0.542, 0.701] & 0.217 \\ \midrule
 \textit{Hallucination} & & & & & & & \\
-C3 (Free Hallu) & 0.594 & [0.519, 0.664] & $<$0.001 & & 0.488 & [0.389, 0.589] & --- \\
-C4a (SP) & \textbf{0.626} & [0.548, 0.698] & $<$0.001 & & 0.551 & [0.450, 0.652] & --- \\
-C4b (PI) & 0.561 & [0.480, 0.634] & $<$0.001 & & 0.543 & [0.441, 0.644] & --- \\
-C4c (MF) & 0.612 & [0.537, 0.685] & $<$0.001 & & 0.532 & [0.431, 0.633] & --- \\ \midrule
+C3 (Free Hallu) & 0.593 & [0.519, 0.664] & 0.438 & & 0.504 & [0.420, 0.592] & 0.016 \\
+C4a (SP) & \textbf{0.626} & [0.548, 0.698] & 0.344 & & \textbf{0.666} & [0.579, 0.748] & 0.808 \\
+C4b (PI) & 0.563 & [0.480, 0.634] & 0.743 & & 0.542 & [0.448, 0.628] & 0.011 \\
+C4c (MF) & 0.611 & [0.537, 0.685] & 0.352 & & 0.566 & [0.493, 0.645] & 0.083 \\ \midrule
 \textit{Control} & & & & & & & \\
-C5 (Shuffled) & 0.530 & [0.454, 0.607] & $<$0.001 & & 0.496 & [0.395, 0.597] & --- \\ \bottomrule
+C5 (Random-Permutation) & 0.481 & [0.408, 0.554] & 0.438 & & 0.492 & [0.405, 0.584] & 0.012 \\ \bottomrule
 \end{tabular}
 
 \vspace{0.5em}
-\footnotesize{Note: $p$-values for BACE are not reported because all conditions performed below baseline, making the comparison direction reversed. Cohen's $d$ values on prediction scores are reported in the Appendix.}
+\footnotesize{Note: Table 1 reports results for the primary single-run evaluation (seed=42). $p$-values ($p_{\text{BH}}$) are computed against C0 using a bootstrap paired AUC difference test with Benjamini-Hochberg correction. For BACE, $p$-values reflect the statistical significance of the observed distributional shift, where performance degradation leads to near-chance ROC-AUC. Multi-seed stability results for C0 and C3 are provided in Table 2.}
 \end{table}

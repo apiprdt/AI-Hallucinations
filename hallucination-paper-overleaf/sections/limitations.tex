@@ -3,7 +3,7 @@
 
 This study has several important limitations that constrain the generalizability and interpretability of its findings.
 
-\paragraph{Single model.} All experiments were conducted with a single LLM (Llama-3.1-8B-Instant via Groq API). The observed effects---including the distributional bias toward CC hallucinations and the task-dependent performance asymmetry---may be specific to this model family, parameter count, or inference backend. Validation across architecturally diverse models (e.g., GPT-4, Claude, Gemini, or larger Llama variants) is necessary before broader conclusions can be drawn.
+\paragraph{Model scope.} Primary experiments were conducted with Llama-3.1-8B-Instant. While cross-model validation was performed with Llama-3.3-70B, this was limited to two conditions (C0, C3) and a single inference run, precluding a full nine-condition multi-seed ablation for the larger architecture. The observed effects—including the task-dependent performance asymmetry—may be sensitive to model family, parameter count, or inference backend beyond the two evaluated scales.
 
 \paragraph{Single-split evaluation.} Results are based on a single scaffold-split test set for each dataset (BBBP $N=204$, BACE $N=152$) without cross-validation. This makes the reported ROC-AUC values sensitive to the specific test partition and limits confidence in the stability of the observed rankings.
 

@@ -84,11 +84,14 @@ SHORT_LABELS = {
     'C4a_hallu_sp': 'C4a',
     'C4b_hallu_pi': 'C4b',
     'C4c_hallu_mf': 'C4c',
-    'C5_shuffled': 'C5',
-}
-
 COLOR_LIST = [COLORS['C0'], COLORS['C1'], COLORS['C2'], COLORS['C2b'],
               COLORS['C3'], COLORS['C4a'], COLORS['C4b'], COLORS['C4c'], COLORS['C5']]
+
+labels = [
+    'C0: Baseline', 'C1: Factual', 'C2: Chem. Priming', 'C2b: Gibberish',
+    'C3: Free Hallu', 'C4a: Structural Phantom', 'C4b: Prop. Inversion',
+    'C4c: Mech. Fabrication', 'C5: Random-Permutation Ctrl'
+]
 
 CONDITIONS = ['C0_pure', 'C1_factual', 'C2_chempriming', 'C2b_pure_gibberish',
               'C3_hallu_free', 'C4a_hallu_sp', 'C4b_hallu_pi', 'C4c_hallu_mf', 'C5_shuffled']
@@ -182,7 +185,7 @@ def figure1_performance(df):
     
     plt.tight_layout()
     fig.savefig(OUT_DIR / 'figure1_performance_comparison.png')
-    print("✓ Saved figure1_performance_comparison.png")
+    print("[OK] Saved figure1_performance_comparison.png")
     plt.close(fig)
 
 
@@ -240,8 +243,8 @@ def figure2_taxonomy(df):
     ax.set_axisbelow(True)
     
     plt.tight_layout()
-    fig.savefig(OUT_DIR / 'figure2_taxonomy_distribution.png')
-    print("✓ Saved figure2_taxonomy_distribution.png")
+    fig.savefig(OUT_DIR / 'figure4_taxonomy_distribution.png')
+    print("[OK] Saved figure4_taxonomy_distribution.png")
     plt.close(fig)
 
 
@@ -291,7 +294,7 @@ def figure3_collapse(bace_checkpoint: str):
     
     plt.tight_layout()
     fig.savefig(OUT_DIR / 'figure3_negativity_collapse.png')
-    print("✓ Saved figure3_negativity_collapse.png")
+    print("[OK] Saved figure3_negativity_collapse.png")
     plt.close(fig)
 
 
@@ -348,8 +351,8 @@ def figure4_bootstrap(df):
     ax.set_axisbelow(True)
     
     plt.tight_layout()
-    fig.savefig(OUT_DIR / 'figure4_bootstrap_stability.png')
-    print("✓ Saved figure4_bootstrap_stability.png")
+    fig.savefig(OUT_DIR / 'figure2_bootstrap_stability.png')
+    print("[OK] Saved figure2_bootstrap_stability.png")
     plt.close(fig)
 
 
@@ -370,4 +373,4 @@ if __name__ == "__main__":
     figure3_collapse(bace_ckpt)
     figure4_bootstrap(df_bbbp)
     
-    print("\n✓ All figures generated successfully.")
+    print("\n[OK] All figures generated successfully.")

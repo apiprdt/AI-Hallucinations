@@ -3,6 +3,7 @@
 __pycache__/
 *.csv
 *.json
+!data/processed/results_*.json
 
 # Figures
 *.png

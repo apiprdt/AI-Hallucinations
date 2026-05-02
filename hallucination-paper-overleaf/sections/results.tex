@@ -3,7 +3,7 @@
 
 \subsection{Predictive Performance Across Conditions}
 
-Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets.
+Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize the primary ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets, using a fixed inference seed (42) as the primary benchmark. To assess the stability of these observations across stochastic variations, multi-seed robustness results for selected conditions are provided in Table~\ref{tab:robustness}.
 
 \input{tables/results_tables}
 
@@ -17,11 +17,11 @@ Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize ROC-AUC score
 \subsubsection{BBBP (Physicochemical Task)}
 To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved an expectedly strong ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain strictly below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
 
-The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593]. Factual augmentation (C1) produced a marginal, non-significant increase to 0.540. Chemical priming (C2) yielded 0.614, while pure non-chemical gibberish (C2b) yielded 0.553.
+The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593]. Factual augmentation (C1) produced a marginal, non-significant increase to 0.541. Chemical priming (C2) yielded 0.613, while pure non-chemical gibberish (C2b) yielded 0.553.
 
-Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among category-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.612) and Property Inversion (C4b, 0.561). 
+Free hallucination (C3) improved ROC-AUC to 0.593 [0.519, 0.664]. Among category-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.611) and Property Inversion (C4b, 0.563). 
 
-\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of SP hallucination (C4a) over the LLM baseline (C0) proved highly stable, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
+\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of SP hallucination (C4a) over the LLM baseline (C0) proved highly consistent, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
 
 \begin{figure}[h]
     \centering
@@ -30,13 +30,13 @@ Free hallucination (C3) improved ROC-AUC to 0.594 [0.519, 0.664]. Among category
     \label{fig:bootstrap}
 \end{figure}
 
-The circular-shift semantic control (C5) yielded 0.530 [0.454, 0.607], closely aligned with baseline C0 and substantially below C3, indicating that the scientific register of hallucinated text alone does not account for the observed gains.
+The random-permutation semantic control (C5) yielded 0.481 [0.408, 0.554], closely aligned with (and slightly below) the baseline C0 and substantially below C3. This indicates that the scientific register of hallucinated text alone does not account for the observed gains, and that disrupting semantic alignment effectively eliminates the predictive benefit of hallucinated descriptions.
 
 \subsubsection{BACE (Enzymatic Task)}
-On the BACE test set ($N=152$), a contrasting pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.656 [0.556, 0.752]. All hallucination-augmented conditions reduced performance relative to baseline. Free hallucination (C3) reduced ROC-AUC to 0.488 [0.389, 0.589], representing a substantial degradation toward near-chance behavior.
+On the BACE test set ($N=152$), a contrasting pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.584, 0.756]. All hallucination-augmented conditions reduced performance relative to baseline. Free hallucination (C3) reduced ROC-AUC to 0.504 [0.409, 0.598], representing a substantial degradation toward near-chance behavior.
 
-\subsection{Prediction Collapse on BACE}
-Under hallucination conditions on BACE, the distribution of predicted probabilities collapsed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. This effect, which we descriptively term ``prediction collapse,'' was observed across all hallucination conditions (C3, C4a--c) and suggests systematic signal destruction rather than random noise injection.
+\subsection{Distributional Compression on BACE}
+Under hallucination conditions on BACE, the distribution of predicted probabilities compressed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. This effect, which we descriptively term ``distributional compression,'' was observed across all hallucination conditions (C3, C4a--c) and suggests systematic signal destruction rather than random noise injection.
 
 \begin{figure}[t]
     \centering
@@ -53,4 +53,20 @@ Analysis of 356 naturally generated hallucinations across both datasets revealed
     \includegraphics[width=0.8\linewidth]{figures/figure4_taxonomy_distribution.png}
     \caption{Free hallucinations exhibit a pronounced distributional bias toward generic Contextual Confabulation (CC), with structurally grounded perturbations (SP) occurring rarely despite their stronger association with predictive performance.}
     \label{fig:taxonomy}
+\end{figure}
+
+\subsection{Robustness and Cross-Model Generalization}
+To assess the stability of the observed hallucination effects, we conducted multi-seed evaluations for the Llama-3.1-8B model ($n=3$ seeds) and cross-model validation using the larger Llama-3.3-70B model (Table~\ref{tab:robustness}).
+
+On the BBBP task, the performance shift from free hallucination (C3) was consistent across seeds ($\sigma = 0.006$), confirming that the gain is not a stochastic artifact. However, the larger Llama-3.3-70B model exhibited a different behavior: while its baseline (C0) performance was substantially higher (0.644), hallucination augmentation degraded its discriminative accuracy (0.549). This suggests that the observed directional shift may be specific to models with lower baseline chemical knowledge, whereas higher-capacity models are more sensitive to fabrication-induced noise.
+
+On the BACE task, the "distributional compression" phenomenon was universally consistent. Both models and all seeds showed a significant degradation of ROC-AUC toward chance level ($0.512 \pm 0.005$) when augmented with hallucinations, regardless of the baseline strength. This reinforces our finding that enzymatic property prediction is systematically fragile to semantic perturbations across LLM architectures.
+
+\input{tables/robustness_tables}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/figure5_scaling_divergence.png}
+    \caption{Architecture-dependent response to hallucination augmentation. Smaller models (8B) exhibit a consistent directional improvement on the BBBP task, whereas the larger model (70B) shows sensitivity to fabrication-induced noise, resulting in performance degradation.}
+    \label{fig:scaling}
 \end{figure}
