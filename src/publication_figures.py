@@ -72,7 +72,7 @@ LABELS = {
     'C4a_hallu_sp': 'C4a: Structural\nPhantom',
     'C4b_hallu_pi': 'C4b: Property\nInversion',
     'C4c_hallu_mf': 'C4c: Mechanism\nFabrication',
-    'C5_shuffled': 'C5: Shuffled\n(Semantic Ctrl)',
+    'C5_shuffled': 'C5: Random-Perm.\n(Semantic Ctrl)',
 }
 
 SHORT_LABELS = {
@@ -84,14 +84,12 @@ SHORT_LABELS = {
     'C4a_hallu_sp': 'C4a',
     'C4b_hallu_pi': 'C4b',
     'C4c_hallu_mf': 'C4c',
+    'C5_shuffled': 'C5',
+}
+
 COLOR_LIST = [COLORS['C0'], COLORS['C1'], COLORS['C2'], COLORS['C2b'],
               COLORS['C3'], COLORS['C4a'], COLORS['C4b'], COLORS['C4c'], COLORS['C5']]
 
-labels = [
-    'C0: Baseline', 'C1: Factual', 'C2: Chem. Priming', 'C2b: Gibberish',
-    'C3: Free Hallu', 'C4a: Structural Phantom', 'C4b: Prop. Inversion',
-    'C4c: Mech. Fabrication', 'C5: Random-Permutation Ctrl'
-]
 
 CONDITIONS = ['C0_pure', 'C1_factual', 'C2_chempriming', 'C2b_pure_gibberish',
               'C3_hallu_free', 'C4a_hallu_sp', 'C4b_hallu_pi', 'C4c_hallu_mf', 'C5_shuffled']
