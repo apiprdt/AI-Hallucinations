@@ -15,7 +15,7 @@ Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize the primary R
 \end{figure}
 
 \subsubsection{BBBP (Physicochemical Task)}
-To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved an expectedly strong ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain strictly below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
+To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved a ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
 
 The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593] on the primary inference run (seed 42). We note that this specific run yielded an above-average baseline compared to the multi-seed mean (0.502, Table~\ref{tab:robustness}), meaning the performance shifts observed in Table~\ref{tab:results} are measured against a relatively optimistic baseline. Factual augmentation (C1) produced a marginal, non-significant increase to 0.541. Chemical priming (C2) yielded 0.613, while pure non-chemical gibberish (C2b) yielded 0.553.
 
@@ -54,7 +54,7 @@ To further characterize the C4a condition, we applied the taxonomy classifier to
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/figure4_taxonomy_distribution.png}
-    \caption{Distribution of hallucination types in naturally generated (C3) descriptions. Contextual Confabulation (CC) dominates at approximately 80\%, with Structural Phantom (SP) occurring rarely (2.4\% of BBBP outputs). Note that this distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c conditions were verified separately (see Section~\ref{sec:taxonomy}).}
+    \caption{Distribution of hallucination types in naturally generated (C3) descriptions. Contextual Confabulation (CC) dominates at approximately 80\%, with Structural Phantom (SP) occurring rarely (2.4\% of BBBP outputs). This distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c conditions were verified separately and are discussed in the text.}
     \label{fig:taxonomy}
 \end{figure}
 
