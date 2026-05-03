@@ -1,0 +1,21 @@
+Dear F1000Research Editorial Team,
+
+I am submitting the manuscript titled "Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction" for consideration as an Original Article in F1000Research.
+
+This work introduces a controlled semantic perturbation framework to systematically evaluate how different types of structured hallucinations affect LLM-based molecular property prediction. Through a nine-condition ablation study across two MoleculeNet benchmarks (BBBP and BACE) with multi-seed evaluation and cross-model validation (Llama-3.1-8B and Llama-3.3-70B), we provide empirical evidence that the semantic orientation of textual augmentations---not merely their presence---differentially influences prediction outcomes in a task- and architecture-dependent manner.
+
+A key methodological finding is that prompt-constrained structural augmentation, despite yielding the largest directional performance gain on BBBP, produces outputs that are classified as 0% Structural Phantom by our heuristic taxonomy classifier---highlighting the gap between prompt design intent and actual output characteristics, a confound relevant to all taxonomy-constrained generation approaches.
+
+The study is explicitly scoped as an exploratory pilot investigation. We do not overclaim generalizability and provide extensive limitation analysis, making it suitable for F1000Research's emphasis on transparent, reproducible science. All data, code, and generated augmentations are publicly available at https://github.com/apiprdt/AI-Hallucinations.
+
+This manuscript has not been submitted elsewhere and is not under consideration at any other journal.
+
+I declare no competing interests and have received no specific funding for this work.
+
+Thank you for your consideration.
+
+Sincerely,
+
+Muhammad Afif Erdita
+maeapip10@gmail.com
+ORCID: 0009-0004-7597-5221
