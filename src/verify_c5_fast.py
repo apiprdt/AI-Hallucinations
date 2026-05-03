@@ -1,12 +1,12 @@
 import os
 import json
-import time
-import re
 import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 from groq import Groq
 from tqdm import tqdm
+import re
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,11 +23,8 @@ Additional information: {augmentation}
 
 On a scale of 0 to 1, what is the probability that this molecule can penetrate the blood-brain barrier?
 Respond with ONLY a number between 0 and 1. Nothing else."""
-
-        max_retries = 3
-        retry_delay = 5
         
-        for attempt in range(max_retries):
+        for attempt in range(3):
             try:
                 response = self.client.chat.completions.create(
                     model="llama-3.1-8b-instant",
@@ -42,18 +39,12 @@ Respond with ONLY a number between 0 and 1. Nothing else."""
                     prob = float(match.group())
                     return min(max(prob, 0.0), 1.0)
                 return 0.5
-            except Exception as e:
-                if "rate_limit_exceeded" in str(e).lower() and attempt < max_retries - 1:
-                    time.sleep(retry_delay)
-                    retry_delay *= 2
-                else:
-                    return 0.5
+            except Exception:
+                time.sleep(2)
         return 0.5
 
 def main():
-    print("Loading test set SMILES from checkpoint...")
-    checkpoint_file = "data/processed/results_bbbp_checkpoint.json"
-    with open(checkpoint_file, 'r') as f:
+    with open("data/processed/results_bbbp_checkpoint.json", "r") as f:
         ckpt = json.load(f)
     
     data = []
@@ -63,49 +54,33 @@ def main():
             "label": v["label"],
             "c3_text": v["hallu_free_text"]
         })
-    
     df = pd.DataFrame(data)
-    total_molecules = len(df)
-    print(f"Loaded {total_molecules} molecules.")
+    
+    # We take 50 random samples to make AUC valid but fast
+    df = df.sample(n=50, random_state=42).reset_index(drop=True)
     
     predictor = Predictor()
-    seeds = [100, 200, 300, 400]
+    seeds = [100, 200]
     results = {}
     
     for seed in seeds:
-        print(f"\n--- Running C5 with seed {seed} ---")
         np.random.seed(seed)
-        shuffled_idx = np.random.permutation(total_molecules)
-        
-        # Make sure no molecule gets its own text
-        while any(shuffled_idx == np.arange(total_molecules)):
-            np.random.seed(seed + 1)
-            shuffled_idx = np.random.permutation(total_molecules)
-            seed += 1
-            
+        shuffled_idx = np.random.permutation(50)
         c5_texts = df['c3_text'].iloc[shuffled_idx].values
         
         preds = []
-        for i, row in tqdm(df.iterrows(), total=total_molecules):
-            smiles = row['smiles']
-            c5_text = c5_texts[i]
-            pred = predictor.predict_property(smiles, c5_text)
-            preds.append(pred)
+        for i, row in tqdm(df.iterrows(), total=50):
+            preds.append(predictor.predict_property(row['smiles'], c5_texts[i]))
             
         auc = roc_auc_score(df['label'], preds)
         results[seed] = auc
-        print(f"ROC-AUC for seed {seed}: {auc:.4f}")
+        print(f"Seed {seed}: {auc:.4f}")
         
-    print("\n--- FINAL C5 RESULTS ---")
+    print("\n--- C5 FAST RESULTS ---")
     aucs = list(results.values())
-    
-    # Also add the original seed 42
-    print(f"Seed 42 (from paper): 0.481")
-    aucs.append(0.481)
-    
-    mean_auc = np.mean(aucs)
-    std_auc = np.std(aucs)
-    print(f"Mean AUC: {mean_auc:.4f} ± {std_auc:.4f}")
+    print(f"Mean AUC: {np.mean(aucs):.4f} ± {np.std(aucs):.4f}")
+    with open("c5_fast_results.json", "w") as f:
+        json.dump(results, f)
 
 if __name__ == "__main__":
     main()

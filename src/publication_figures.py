@@ -69,7 +69,7 @@ LABELS = {
     'C2_chempriming': 'C2: Chem.\nPriming',
     'C2b_pure_gibberish': 'C2b: Pure\nGibberish',
     'C3_hallu_free': 'C3: Free\nHallucination',
-    'C4a_hallu_sp': 'C4a: Structural\nPhantom',
+    'C4a_hallu_sp': 'C4a: Structural\nAugmentation',
     'C4b_hallu_pi': 'C4b: Property\nInversion',
     'C4c_hallu_mf': 'C4c: Mechanism\nFabrication',
     'C5_shuffled': 'C5: Random-Perm.\n(Semantic Ctrl)',
