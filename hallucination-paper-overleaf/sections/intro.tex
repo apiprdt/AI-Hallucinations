@@ -8,7 +8,7 @@ However, existing investigations of this phenomenon share several limitations. F
 
 This work addresses these gaps through a controlled perturbation framework. We make the following scoping explicit: we do not propose a novel architecture for molecular prediction, nor do we claim to mechanistically explain why hallucinations alter LLM reasoning. Instead, we empirically characterize \emph{which types} of structured semantic perturbations are associated with performance shifts, and under \emph{which task conditions} these associations emerge.
 
-The primary contribution of this work is the introduction of a controlled semantic perturbation framework to systematically evaluate how structured hallucination types influence LLM-based molecular prediction. We define a lightweight, operational categorization scheme—comprising Structural Phantom (SP), Property Inversion (PI), Mechanism Fabrication (MF), and Contextual Confabulation (CC) types—utilized as controlled perturbation operators to isolate specific semantic effects. We evaluate this framework through a nine-condition ablation on two MoleculeNet benchmarks representing distinct regimes: BBBP (physicochemical) and BACE (enzyme inhibition).
+The primary contribution of this work is the introduction of a controlled semantic perturbation framework to systematically evaluate how structured semantic alterations influence LLM-based molecular prediction. We define a lightweight, heuristic categorization scheme comprising three prompt-constrained perturbation operators—Structural Phantom (SP), Property Inversion (PI), and Mechanism Fabrication (MF)—alongside a residual Contextual Confabulation (CC) class. We evaluate this framework through a nine-condition ablation on two MoleculeNet benchmarks representing distinct regimes: BBBP (physicochemical) and BACE (enzyme inhibition).
 
 Our key contributions include:
 \begin{itemize}
@@ -17,7 +17,7 @@ Our key contributions include:
     \item Evidence of a task-dependent divergence in hallucination sensitivity, where structurally grounded (SP) perturbations are associated with directional improvements in physicochemical prediction, while similar augmentations induce performance degradation in enzymatic tasks.
     \item Characterization of prediction distribution compression on BACE, where hallucination augmentation shifts bimodal baseline distributions toward non-discriminative narrow peaks.
     \item A random-permutation control experiment demonstrating that semantic content, rather than stylistic register alone, is the primary driver of observed performance shifts within the evaluated setting.
-    \item Evidence of architecture-dependent hallucination sensitivity, where smaller models exhibit performance gains under free hallucination augmentation on physicochemical tasks, while larger models show reversed sensitivity, suggesting a non-linear relationship between model capacity and perturbation response.
+    \item Speculative observation of architecture-dependent hallucination sensitivity, where smaller models exhibit directional performance gains under free hallucination augmentation on physicochemical tasks, while larger models show reversed sensitivity.
 \end{itemize}
 
 We explicitly bound this exploratory pilot study ($N=204$ for BBBP, $N=152$ for BACE) to two LLM scales. These findings are intended to structure future empirical investigation into LLM augmentation rather than to establish definitive causal mechanisms.

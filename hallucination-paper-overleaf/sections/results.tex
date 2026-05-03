@@ -17,7 +17,7 @@ Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize the primary R
 \subsubsection{BBBP (Physicochemical Task)}
 To contextualize the LLM zero-shot performance, the traditional ML baseline (Random Forest with Morgan fingerprints) achieved an expectedly strong ROC-AUC of 0.705 on the BBBP test set. While the zero-shot LLM predictions remain strictly below this traditional baseline, the relative differences between textual augmentation conditions reveal substantial semantic perturbation effects.
 
-The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593]. Factual augmentation (C1) produced a marginal, non-significant increase to 0.541. Chemical priming (C2) yielded 0.613, while pure non-chemical gibberish (C2b) yielded 0.553.
+The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593] on the primary inference run (seed 42). We note that this specific run yielded an above-average baseline compared to the multi-seed mean (0.502, Table~\ref{tab:robustness}), meaning the performance shifts observed in Table~\ref{tab:results} are measured against a relatively optimistic baseline. Factual augmentation (C1) produced a marginal, non-significant increase to 0.541. Chemical priming (C2) yielded 0.613, while pure non-chemical gibberish (C2b) yielded 0.553.
 
 Free hallucination (C3) improved ROC-AUC to 0.593 [0.519, 0.664]. Among category-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.611) and Property Inversion (C4b, 0.563). 
 
@@ -36,7 +36,7 @@ The random-permutation semantic control (C5) yielded 0.481 [0.408, 0.554], close
 On the BACE test set ($N=152$), a contrasting pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.592, 0.759]. All hallucination-augmented conditions reduced performance relative to baseline. Free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592], representing a substantial degradation toward near-chance behavior.
 
 \subsection{Distributional Compression on BACE}
-Under hallucination conditions on BACE, the distribution of predicted probabilities compressed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. This effect, which we descriptively term ``distributional compression,'' was observed across all hallucination conditions (C3, C4a--c) and suggests systematic signal destruction rather than random noise injection.
+Under hallucination conditions on BACE, the distribution of predicted probabilities compressed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. Notably, this is not a collapse to the dataset's class prior (the BACE test set is 60.5\% positive); rather, it is a genuine collapse to a low-confidence negative state. This effect, which we descriptively term ``distributional compression,'' was observed across all hallucination conditions (C3, C4a--c) and suggests systematic signal destruction rather than random noise injection or prior-matching.
 
 \begin{figure}[t]
     \centering
@@ -46,7 +46,7 @@ Under hallucination conditions on BACE, the distribution of predicted probabilit
 \end{figure}
 
 \subsection{Distribution of Hallucination Types}
-Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). Despite this low natural frequency, forced SP hallucinations (C4a) yielded the largest observed ROC-AUC increase on BBBP.
+Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). While $n=5$ is too small to support robust distributional claims regarding natural SP frequency, prompt-constrained SP hallucinations (C4a) yielded the largest observed ROC-AUC increase on BBBP.
 
 \begin{figure}[t]
     \centering

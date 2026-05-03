@@ -1,8 +1,8 @@
 \section{Methods}
 \label{sec:methods}
 
-\subsection{Operational Categorization Scheme}
-We utilize an operational categorization scheme for molecular hallucinations, each type detectable through rule-based classification using RDKit~\cite{landrum2016rdkit} as the ground-truth engine. We emphasize that this scheme is a heuristic tool for structured perturbation analysis, not an exhaustive semantic ontology. The keyword sets were intentionally constrained to maintain interpretability and reproducibility rather than maximize coverage. The categories are mutually exclusive and applied in priority order (SP $>$ PI $>$ MF $>$ CC):
+\subsection{Heuristic Categorization Scheme}
+We utilize a heuristic categorization scheme to structure our analysis of natural molecular hallucinations (C3). Each type is detectable through rule-based classification using RDKit~\cite{landrum2016rdkit} as the ground-truth engine. We emphasize that this scheme is a heuristic tool, not an exhaustive semantic ontology. The keyword sets were intentionally constrained to maintain interpretability and reproducibility rather than maximize coverage. The categories are mutually exclusive and applied in priority order (SP $>$ PI $>$ MF $>$ CC):
 
 \begin{itemize}
     \item \textbf{Structural Phantom (SP):} The generated text references chemical elements or functional groups that are absent from the molecular structure. Detection: for a predefined heuristic dictionary of element keywords (e.g., ``fluorine'', ``fluoro''), we check whether the corresponding element is present in the molecule's atom set via \texttt{mol.GetAtoms()}. If a keyword matches but the element is absent, the description is classified as SP.
@@ -22,9 +22,9 @@ Our ablation framework consists of nine conditions, designed to isolate the cont
     \item \textbf{C2 (Chemical Priming):} SMILES augmented with a template-generated text using scientific-sounding but semantically vacuous language that includes chemical vocabulary. We note that C2 is \emph{not} a pure stylistic control because it contains domain-relevant vocabulary; C2b serves as the stricter control.
     \item \textbf{C2b (Pure Gibberish):} SMILES augmented with template-generated text using exclusively non-chemical vocabulary. This condition strictly controls for prompt length and linguistic complexity without domain priming.
     \item \textbf{C3 (Free Hallucination):} SMILES augmented with an unconstrained LLM-generated description, replicating the protocol of prior work~\cite{hao2024hallucination}.
-    \item \textbf{C4a (Structural Phantom):} SMILES augmented with a hallucination generated via constrained prompting to focus on structural features and functional groups.
-    \item \textbf{C4b (Property Inversion):} SMILES augmented with a hallucination generated via constrained prompting to focus on solubility, lipophilicity, and permeability.
-    \item \textbf{C4c (Mechanism Fabrication):} SMILES augmented with a hallucination generated via constrained prompting to hypothesize biological targets and cellular mechanisms.
+    \item \textbf{C4a (Structural Phantom):} SMILES augmented with text generated via prompt-constrained forcing to explicitly describe structural features and functional groups. We emphasize that C4a--c represent prompt-constrained semantic perturbations rather than naturally occurring hallucinations classified post-hoc. Due to evaluation constraints, the outputs of C4a--c were not run through the taxonomy classifier for structural verification.
+    \item \textbf{C4b (Property Inversion):} SMILES augmented with text generated via prompt-constrained forcing to explicitly describe solubility, lipophilicity, and permeability.
+    \item \textbf{C4c (Mechanism Fabrication):} SMILES augmented with text generated via prompt-constrained forcing to explicitly hypothesize biological targets and cellular mechanisms.
     \item \textbf{C5 (Random-Permutation):} SMILES augmented with a hallucination originally generated for a \emph{different} molecule, assigned via a fixed random permutation ($seed=42$). This preserves the scientific register and statistical properties of hallucinated text while completely disrupting semantic alignment with the target molecule.
 \end{itemize}
 
@@ -52,7 +52,7 @@ The augmentation line is omitted for C0. The task description is ``penetrate the
 
 \textbf{Traditional ML Baseline.} To provide context for the zero-shot LLM predictions, we trained a Random Forest classifier (500 trees) using Morgan fingerprints (radius=2, 2048 bits) on the training and validation partitions of the scaffold split. The baseline was evaluated on the exact same test sets ($N=204$ for BBBP, $N=152$ for BACE) to ensure strict comparability.
 
-\textbf{Evaluation.} Discriminative performance was assessed using ROC-AUC. Confidence intervals (95\%) were computed via bootstrap resampling (1,000 iterations, seed $= 42$). To assess statistical significance of performance differences relative to baseline (C0), we used a bootstrap paired AUC difference test. Multiple comparisons were corrected using the Benjamini-Hochberg procedure.
+\textbf{Evaluation.} Discriminative performance was assessed using ROC-AUC. Confidence intervals (95\%) were computed via bootstrap resampling (1,000 iterations, seed $= 42$). To assess statistical significance of performance differences relative to baseline (C0), we used a bootstrap paired AUC difference test. Cohen's $d$ was computed on the raw prediction score distributions (not AUC differences) to quantify the shift in model confidence. Multiple comparisons were corrected using the Benjamini-Hochberg procedure.
 
 \subsection{Robustness and Cross-Model Validation}
 \label{sec:implementation_robustness}
