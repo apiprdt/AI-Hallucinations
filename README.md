@@ -1,4 +1,4 @@
-# Architecture-Dependent Sensitivity to Structured Semantic Perturbations
+# Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction
 
 **A Controlled Perturbation Study on LLM-Based Molecular Property Prediction**
 
