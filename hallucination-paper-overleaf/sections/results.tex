@@ -10,7 +10,7 @@ Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize the primary R
 \begin{figure}[t]
     \centering
     \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
-    \caption{Task-dependent divergence in hallucination sensitivity across perturbation conditions, with structurally grounded (SP) hallucination associated with the largest discriminative improvement on BBBP.}
+    \caption{Task-dependent divergence in semantic augmentation sensitivity across perturbation conditions. Prompt-constrained structural augmentation (C4a) is associated with the largest directional improvement on BBBP, though post-hoc verification reveals C4a outputs are predominantly Contextual Confabulation rather than Structural Phantom type (see Section 4.3).}
     \label{fig:performance}
 \end{figure}
 
@@ -19,14 +19,14 @@ To contextualize the LLM zero-shot performance, the traditional ML baseline (Ran
 
 The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593] on the primary inference run (seed 42). We note that this specific run yielded an above-average baseline compared to the multi-seed mean (0.502, Table~\ref{tab:robustness}), meaning the performance shifts observed in Table~\ref{tab:results} are measured against a relatively optimistic baseline. Factual augmentation (C1) produced a marginal, non-significant increase to 0.541. Chemical priming (C2) yielded 0.613, while pure non-chemical gibberish (C2b) yielded 0.553.
 
-Free hallucination (C3) improved ROC-AUC to 0.593 [0.519, 0.664]. Among category-specific conditions, Structural Phantom hallucination (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.611) and Property Inversion (C4b, 0.563). 
+Free hallucination (C3) improved ROC-AUC to 0.593 [0.519, 0.664]. Among category-specific conditions, prompt-constrained structural augmentation (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.611) and Property Inversion (C4b, 0.563). We note that post-hoc classifier verification of C4a outputs (Section 4.3) revealed a 0\% Structural Phantom classification rate, indicating that C4a functions as a structural topic-focused perturbation rather than a SP hallucination condition in the strict taxonomic sense. 
 
-\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of SP hallucination (C4a) over the LLM baseline (C0) proved highly consistent, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
+\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The superiority of structural augmentation (C4a) over the LLM baseline (C0) proved highly consistent, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) outperformed the baseline in 87.7\% of resamples.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{figures/figure2_bootstrap_stability.png}
-    \caption{Bootstrapped ROC-AUC distributions demonstrate the statistical stability of Structural Phantom (C4a) hallucination gains relative to the SMILES baseline (C0) on the BBBP dataset.}
+    \caption{Bootstrapped ROC-AUC distributions demonstrate the statistical stability of structural augmentation (C4a) gains relative to the SMILES baseline (C0) on the BBBP dataset. Note that C4a outputs were subsequently verified as 0\% Structural Phantom by the taxonomy classifier; the gain is attributed to prompt-induced structural topic focus rather than SP hallucination type.}
     \label{fig:bootstrap}
 \end{figure}
 
@@ -46,7 +46,9 @@ Under hallucination conditions on BACE, the distribution of predicted probabilit
 \end{figure}
 
 \subsection{Distribution of Hallucination Types}
-Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). While $n=5$ is too small to support robust distributional claims regarding natural SP frequency, prompt-constrained SP hallucinations (C4a) yielded the largest observed ROC-AUC increase on BBBP.
+Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP). While $n=5$ is too small to support robust distributional claims regarding natural SP frequency, prompt-constrained structural augmentation (C4a) yielded the largest observed ROC-AUC increase on BBBP.
+
+To further characterize the C4a condition, we applied the taxonomy classifier to all generated C4a outputs. Contrary to design intent, 0\% of C4a texts were classified as Structural Phantom; the dominant output category was Contextual Confabulation. This finding reveals a critical limitation of prompt-constrained perturbation as a proxy for taxonomic hallucination types: the LLM generates structurally plausible but compositionally generic descriptions even when explicitly prompted for structural specificity. Consequently, the ROC-AUC gain associated with C4a is more accurately attributed to structural topic focus induced by the generation prompt---which directs the model's attention toward molecular features---rather than to SP-type factual error per se. This distinction critically reframes the interpretation: what differentiates C4a from other conditions is the prompt's semantic orientation, not the hallucination category of its output. This also underscores the gap between prompt design and actual output taxonomy, a confound that future work employing taxonomy-constrained generation should address.
 
 \begin{figure}[t]
     \centering
