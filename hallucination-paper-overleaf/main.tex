@@ -1,7 +1,6 @@
-\documentclass{article}
+\documentclass[preprint,12pt]{elsarticle}
 
 % --- Packages ---
-\usepackage[margin=1.2in]{geometry} % Clean academic margins instead of NeurIPS style
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -13,26 +12,48 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\usepackage[numbers,sort&compress]{natbib} % Fixes citation margin overflow
-\usepackage{cleveref} % For smart referencing
+\usepackage{cleveref}
 \usepackage{verbatim}
+\usepackage{lineno}
+\modulolinenumbers[5]
 
-% --- Title & Author ---
-\title{Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction}
-
-\author{
-  Muhammad Afif Erdita \\
-  SMA Negeri 23 Kabupaten Tangerang, Indonesia \\
-  \texttt{maeapip10@gmail.com}
-}
+\journal{Journal of Molecular Graphics and Modelling}
 
 \begin{document}
 
-\maketitle
+\begin{frontmatter}
+
+\title{Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction}
+
+\author[inst1]{Muhammad Afif Erdita}
+\ead{maeapip10@gmail.com}
+\affiliation[inst1]{organization={SMA Negeri 23 Kabupaten Tangerang},
+  city={Kabupaten Tangerang},
+  state={Banten},
+  postcode={15821},
+  country={Indonesia}}
+
+\begin{highlights}
+\item Controlled perturbation framework isolates semantic effects in LLM predictions
+\item Structural topic focus is associated with directional gain, not hallucination type
+\item Task-dependent asymmetry: directional trends on BBBP, significant degradation on BACE
+\item Random-permutation control separates semantic content from stylistic priming
+\item Larger models show reversed sensitivity to semantic perturbations
+\end{highlights}
 
 \begin{abstract}
 \input{sections/abstract}
 \end{abstract}
+
+\begin{keyword}
+large language models \sep molecular property prediction \sep 
+hallucination \sep semantic perturbation \sep cheminformatics \sep 
+zero-shot learning
+\end{keyword}
+
+\end{frontmatter}
+
+\linenumbers
 
 \input{sections/intro}
 \input{sections/related_work}
@@ -42,26 +63,20 @@
 \input{sections/limitations}
 \input{sections/conclusion}
 
-\section*{Code Availability}
-The complete codebase, datasets, and high-resolution figures are available at: \url{https://github.com/apiprdt/AI-Hallucinations}
+\section*{CRediT authorship contribution statement}
+\textbf{Muhammad Afif Erdita:} Conceptualization, Data Curation, Formal Analysis, Investigation, Methodology, Project Administration, Software, Validation, Visualization, Writing -- Original Draft, Writing -- Review \& Editing.
+
+\section*{Declaration of competing interests}
+The author declares that there are no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\section*{Data availability}
+The complete codebase, generated datasets, and high-resolution figures are publicly available at: \url{https://github.com/apiprdt/AI-Hallucinations}. A static version of the evaluation datasets is provided within the repository to ensure exact reproducibility.
 
 \section*{Acknowledgments}
-The author acknowledges the use of \texttt{Llama-3.1-8B-Instant} and \texttt{Llama-3.3-70B-Versatile} (via Groq API) for hallucination generation and molecular prediction inference. Large language models were also used for assistance in drafting and revising sections of this manuscript.
+The author acknowledges the use of \texttt{Llama-\allowbreak 3.1-\allowbreak 8B-\allowbreak Instant} and \texttt{Llama-\allowbreak 3.3-\allowbreak 70B-\allowbreak Versatile} (via Groq API) for hallucination generation and molecular prediction inference. Large language models were also used for assistance in drafting and revising sections of this manuscript.
 
-\bibliographystyle{plainnat}
+\bibliographystyle{elsarticle-num}
 \bibliography{references}
-
-\section*{Data Availability}
-The raw model responses, processed datasets, and source code used for this study are available at: \url{https://github.com/apiprdt/AI-Hallucinations}. A static version of the evaluation datasets is provided within the repository to ensure exact reproducibility.
-
-\section*{Ethics Statement}
-No ethical approval was required for this computational study as it did not involve human subjects, animal testing, or sensitive personal data.
-
-\section*{Competing Interests}
-The author declares no competing interests.
-
-\section*{Grant Information}
-No specific funding was received for this work.
 
 \newpage
 \appendix

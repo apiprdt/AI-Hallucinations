@@ -2,6 +2,7 @@
 \centering
 \caption{Predictive performance (ROC-AUC) across nine augmentation conditions on BBBP and BACE. Bootstrap 95\% confidence intervals computed over 1,000 resamples. Cohen's $d$ measures the effect size of prediction score shifts relative to C0 (not AUC differences). $p$-values are corrected for multiple comparisons using the Benjamini-Hochberg procedure. Boldface indicates the highest ROC-AUC among augmented LLM conditions (excluding C0 baseline) per dataset.}
 \label{tab:results}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lccccccc@{}}
 \toprule
 \textbf{Condition} & \multicolumn{3}{c}{\textbf{BBBP ($N=204$)}} & & \multicolumn{3}{c}{\textbf{BACE ($N=152$)}} \\ \cmidrule(lr){2-4} \cmidrule(lr){6-8}
@@ -20,7 +21,8 @@ C4b (Prop.\ Inv.) & 0.563 & [0.480, 0.634] & 0.743 & & 0.542 & [0.448, 0.628] & 
 C4c (Mech.\ Fab.) & 0.611 & [0.537, 0.685] & 0.352 & & 0.566 & [0.493, 0.645] & 0.083 \\ \midrule
 \textit{Control} & & & & & & & \\
 C5 (Random-Permutation) & 0.481 & [0.408, 0.554] & 0.438 & & 0.492 & [0.405, 0.584] & 0.012 \\ \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 
 \vspace{0.5em}
 \footnotesize{Note: Table 1 reports results for the primary single-run evaluation (seed=42). $p$-values ($p_{\text{BH}}$) are computed against C0 using a bootstrap paired AUC difference test with Benjamini-Hochberg correction; C0 yields $p=1.000$ by definition (self-comparison). For BACE, statistically significant $p$-values reflect the magnitude of performance degradation from baseline. Multi-seed stability results for C0 and C3 are provided in Table 2.}
