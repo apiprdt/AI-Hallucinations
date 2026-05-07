@@ -33,9 +33,10 @@ Free hallucination (C3) shifted ROC-AUC to 0.593 [0.519, 0.664]. Among category-
 The random-permutation semantic control (C5) yielded 0.481 [0.408, 0.554] on the primary seed. To ensure this was not biased by a single anomalous shuffle, we validated the C5 condition across multiple random permutation seeds. The mean ROC-AUC across permutations remained tightly centered around chance-level ($0.49 \pm 0.02$), at or below the baseline C0 and substantially below C3. This suggests that the scientific register of hallucinated text alone does not account for the observed directional shifts, and that disrupting semantic alignment consistently eliminates the predictive effect of hallucinated descriptions.
 
 \subsubsection{BACE (Enzymatic Task)}
-On the BACE test set ($N=152$), a contrasting and highly robust pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.592, 0.759]. Unlike the exploratory trends on BBBP, nearly all hallucination-augmented conditions on BACE produced statistically significant and substantial performance degradation: free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592] ($p = 0.016$), C4b to 0.542 ($p = 0.011$), and C4c to 0.566 ($p = 0.083$). The notable exception remained C4a (structural augmentation), which largely preserved baseline performance (0.666, $p = 0.808$). Interestingly, pure non-chemical gibberish (C2b) also preserved performance better (0.623, $p = 0.217$) than semantically relevant hallucination conditions (C3, C4b, C4c). This demonstrates that enzymatic property prediction is robustly fragile to semantic perturbations, where the specific content of the hallucination actively interferes with the model's discriminative reasoning.
+On the BACE test set ($N=152$), a contrasting pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.592, 0.759]. Most hallucination-augmented conditions significantly reduced performance relative to baseline: free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592] ($p = 0.016$), C4b to 0.542 ($p = 0.011$), and C4c to 0.566 ($p = 0.083$). The notable exception was C4a (structural augmentation), which largely preserved baseline performance (0.666, $p = 0.808$). Interestingly, pure non-chemical gibberish (C2b) also preserved performance better (0.623, $p = 0.217$) than semantically relevant hallucination conditions (C3, C4b, C4c), suggesting that it is the semantic content of the augmented text---rather than its mere presence---that drives the degradation on BACE.
 
-Under hallucination conditions on BACE, the distribution of predicted probabilities underwent a systematic collapse, compressing from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. Notably, this is not a collapse to the dataset's class prior (the BACE test set is 60.5\% positive); rather, it is a genuine collapse to a low-confidence negative state. This effect, which we term ``distributional compression,'' was most pronounced under C3, C4b, and C4c. C4a (structural augmentation) was a partial exception, consistent with its preserved ROC-AUC (0.666 vs.\ 0.674 baseline). This pattern suggests systematic signal destruction, where the introduction of fabricated semantic claims shifts the model from a discriminative regime to a non-informative, low-confidence state.
+\subsection{Distributional Compression on BACE}
+Under hallucination conditions on BACE, the distribution of predicted probabilities compressed from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. Notably, this is not a collapse to the dataset's class prior (the BACE test set is 60.5\% positive); rather, it is a genuine collapse to a low-confidence negative state. This effect, which we descriptively term ``distributional compression,'' was most pronounced under C3, C4b, and C4c. C4a (structural augmentation) was a partial exception, consistent with its preserved ROC-AUC (0.666 vs.\ 0.674 baseline). The pattern suggests systematic signal destruction under most semantic perturbations rather than random noise injection or prior-matching.
 
 \begin{figure}[t]
     \centering
@@ -56,6 +57,7 @@ Post-hoc classifier verification was extended to C4b and C4c outputs (Table~\ref
 \centering
 \caption{Post-hoc taxonomy classifier verification of prompt-constrained conditions (C4a--c). ``Target'' indicates the intended hallucination type based on prompt design. Compliance rate = proportion classified as the target type. Verification was applied to a representative sample of $n=47$--49 molecules from the BBBP test set.}
 \label{tab:c4_compliance}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lcccccr@{}}
 \toprule
 \textbf{Condition} & \textbf{Target} & $n$ & \textbf{SP} & \textbf{PI} & \textbf{MF} & \textbf{CC} \\ \midrule
@@ -63,7 +65,8 @@ C4a (Structural)  & SP & 49 & 0 (0\%)    & 0          & 0           & 49 (100\%)
 C4b (Property)    & PI & 47 & 0          & 12 (25.5\%) & 0          & 35 (74.5\%) \\
 C4c (Mechanism)   & MF & 49 & 1 (2.0\%)  & 0          & 10 (20.4\%) & 38 (77.6\%) \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \begin{figure}[t]

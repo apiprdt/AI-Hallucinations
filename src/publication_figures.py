@@ -188,9 +188,9 @@ def figure1_performance(df):
 
 
 # ============================================================
-# FIGURE 2: Taxonomy Distribution (Horizontal Bar, NOT pie)
+# FIGURE 4: Taxonomy Distribution (Horizontal Bar, NOT pie)
 # ============================================================
-def figure2_taxonomy(df):
+def figure4_taxonomy(df):
     """Horizontal bar chart showing taxonomy distribution."""
     # Extract taxonomy from checkpoint data
     tax_col = 'taxonomy_free'
@@ -297,9 +297,9 @@ def figure3_collapse(bace_checkpoint: str):
 
 
 # ============================================================
-# FIGURE 4: Bootstrap Stability (Violin + Strip)
+# FIGURE 2: Bootstrap Stability (Violin + Strip)
 # ============================================================
-def figure4_bootstrap(df):
+def figure2_bootstrap(df):
     """Violin plot with strip overlay showing bootstrap AUC distributions."""
     labels_arr = np.array(df['label'])
     rng = np.random.RandomState(42)
@@ -367,8 +367,8 @@ if __name__ == "__main__":
     df_bbbp = load_data(bbbp_ckpt)
     
     figure1_performance(df_bbbp)
-    figure2_taxonomy(df_bbbp)
+    figure4_taxonomy(df_bbbp)
     figure3_collapse(bace_ckpt)
-    figure4_bootstrap(df_bbbp)
+    figure2_bootstrap(df_bbbp)
     
     print("\n[OK] All figures generated successfully.")

@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering
+\caption{Robustness and generalization of the hallucination effect. Llama-8B values represent mean $\pm$ standard deviation across three independent seeds (42, 123, 777). Llama-70B results are based on a single inference run (seed 42), precluding variance estimation.}
+\label{tab:robustness}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Task / Model} & \textbf{C0 (Baseline)} & \textbf{C3 (Free Hallu)} & \textbf{$\Delta$ AUC} \\ \midrule
+\textit{BBBP (Physicochemical)} & & & \\
+Llama-8B ($n=3$ seeds) & 0.502 $\pm$ 0.021 & 0.601 $\pm$ 0.006 & +0.099 \\
+Llama-70B (Single seed) & 0.644 & 0.549 & -0.095 \\ \midrule
+\textit{BACE (Enzymatic)} & & & \\
+Llama-8B ($n=3$ seeds) & 0.644 $\pm$ 0.021 & 0.512 $\pm$ 0.005 & -0.132 \\
+Llama-70B (Single seed) & 0.564 & 0.506 & -0.058 \\ \bottomrule
+\end{tabular}
+\end{table}

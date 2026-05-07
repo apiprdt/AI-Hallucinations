@@ -1,10 +1,8 @@
-\documentclass[sn-mathphys-num]{sn-jnl}
+\documentclass[sn-mathphys]{sn-jnl}
 
 % --- Packages ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[english]{babel}
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
@@ -15,25 +13,20 @@
 \usepackage{graphicx}
 \usepackage{verbatim}
 
-\raggedbottom
-
-% Reduce hyphenation frequency
-\hyphenpenalty=5000
-\exhyphenpenalty=5000
-\pretolerance=2000
-
-%\jyear{2026}
+\jyear{2025}
 
 \begin{document}
 
 \title[Semantic Perturbations in LLM Molecular Prediction]{Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction}
 
-\author*[1]{\fnm{Muhammad Afif} \sur{Erdita} \email{maeapip10@gmail.com}}
+\author*[1]{\fnm{Muhammad Afif} \sur{Erdita}}\email{maeapip10@gmail.com}
 \affil[1]{\orgname{SMA Negeri 23 Kabupaten Tangerang}, \orgaddress{\city{Kabupaten Tangerang}, \state{Banten}, \postcode{15821}, \country{Indonesia}}}
 
-\abstract{\input{sections/abstract}}
+\abstract{
+\input{sections/abstract}
+}
 
-\keywords{large language models, molecular property prediction, hallucination, semantic perturbation, cheminformatics, zero-shot learning}
+\keywords{large language models \and molecular property prediction \and hallucination \and semantic perturbation \and cheminformatics \and zero-shot learning}
 
 \maketitle
 
@@ -47,7 +40,7 @@
 
 \backmatter
 
-\bmhead{Declarations}
+\section*{Declarations}
 
 \bmhead{Funding}
 The author declares that no funds, grants, or other support were received during the preparation of this manuscript.
@@ -68,11 +61,11 @@ Not applicable.
 \textbf{Muhammad Afif Erdita:} Conceptualization, Data Curation, Formal Analysis, Investigation, Methodology, Project Administration, Software, Validation, Visualization, Writing -- Original Draft, Writing -- Review \& Editing.
 
 \bmhead{Use of AI and AI-assisted technologies}
-During the preparation of this work, the author used Llama-3.1-8B and Llama-3.3-70B for the generation of experimental hallucinations and molecular property prediction. These tools were also used for text refinement and grammar assistance. The author takes full responsibility for the content of the publication.
+During the preparation of this work, the author used Llama-3.1-8B and Llama-3.3-70B for the generation of experimental hallucinations and molecular property prediction. These tools were also used for linguistic refinement and drafting of the manuscript. The author takes full responsibility for the content of the publication.
 
 \bibliography{references}
 
-\clearpage
+\newpage
 \appendix
 \input{sections/appendix}
 

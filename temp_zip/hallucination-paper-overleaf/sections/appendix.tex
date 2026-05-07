@@ -18,21 +18,21 @@ The augmentation line is omitted for C0. Task descriptions: ``penetrate the bloo
 
 Hallucination generation used temperature $= 0.9$, \texttt{max\_tokens} $= 150$, with the following type-specific prompts:
 
-\subsubsection*{C3 (Free Hallucination):}
+\paragraph{C3 (Free Hallucination):}
 \textit{``You are a speculative chemist. Given SMILES: \{smiles\}. Generate a creative, scientifically-sounding description of this molecule's potential properties and biological mechanisms. Be creative and speculative. Write 2--3 sentences only.''}
 
-\subsubsection*{C4a (Structural Augmentation):}
+\paragraph{C4a (Structural Augmentation):}
 \textit{``Given SMILES: \{smiles\}. Describe the structural features, functional groups, and atomic composition. Be specific and speculative.''}
 
-\subsubsection*{C4b (Property Inversion):}
+\paragraph{C4b (Property Inversion):}
 \textit{``Given SMILES: \{smiles\}. Describe its solubility, lipophilicity, and membrane permeability with specific values.''}
 
-\subsubsection*{C4c (Mechanism Fabrication):}
+\paragraph{C4c (Mechanism Fabrication):}
 \textit{``Given SMILES: \{smiles\}. Hypothesize biological targets and cellular mechanisms. Be specific about protein targets.''}
 
 \subsection{Control Condition Templates}
 
-\subsubsection*{C2 (Chemical Priming):}
+\paragraph{C2 (Chemical Priming):}
 Template-generated text using scientific vocabulary:
 \textit{``This compound exhibits \{adj\} structural coherence with \{noun\} interaction domains, demonstrating \{adj\} physicochemical characteristics under \{noun\} conditions.''}
 
@@ -41,7 +41,7 @@ Noun pool: hypothetical, theoretical, computational, structural, molecular, chem
 
 \textbf{Note:} This template contains chemical vocabulary (``structural'', ``molecular'', ``physicochemical''), making C2 a \emph{partial} stylistic control. See C2b for the stricter control.
 
-\subsubsection*{C2b (Pure Gibberish):}
+\paragraph{C2b (Pure Gibberish):}
 Template-generated text using exclusively non-chemical vocabulary:
 \textit{``This entity exhibits \{adj\} portfolio coherence with \{noun\} governance domains, demonstrating \{adj\} bureaucratic characteristics under \{noun\} conditions.''}
 
