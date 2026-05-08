@@ -1,0 +1,14 @@
+\begin{table}[t]
+\centering
+\caption{Calibration metrics (Brier Score and Expected Calibration Error) across selected conditions. A significant increase in both metrics on BACE under hallucination (C3) quantifies the observed ``distributional compression'' and loss of discriminative reliability.}
+\label{tab:calibration}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Condition} & \multicolumn{2}{c}{\textbf{BBBP}} & & \multicolumn{2}{c}{\textbf{BACE}} \\ \cmidrule(lr){2-3} \cmidrule(lr){5-6}
+ & Brier $\downarrow$ & ECE $\downarrow$ & & Brier $\downarrow$ & ECE $\downarrow$ \\ \midrule
+C0 (Baseline) & 0.271 & 0.154 & & 0.244 & 0.151 \\
+C2 (Priming)  & 0.267 & 0.161 & & 0.263 & 0.160 \\
+C3 (Hallu)    & 0.254 & 0.100 & & \textbf{0.438} & \textbf{0.439} \\
+\bottomrule
+\end{tabular}
+\end{table}

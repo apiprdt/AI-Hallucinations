@@ -52,7 +52,19 @@ The augmentation line is omitted for C0. The task description is ``penetrate the
 
 \textbf{Traditional ML Baseline.} To provide context for the zero-shot LLM predictions, we trained a Random Forest classifier (500 trees) using Morgan fingerprints (radius=2, 2048 bits) on the training and validation partitions of the scaffold split. The baseline was evaluated on the exact same test sets ($N=204$ for BBBP, $N=152$ for BACE) to ensure strict comparability.
 
-\textbf{Evaluation.} Discriminative performance was assessed using ROC-AUC. Confidence intervals (95\%) were computed via bootstrap resampling (1,000 iterations, seed $= 42$). To assess statistical significance of performance differences relative to baseline (C0), we used a bootstrap paired AUC difference test. Cohen's $d$ was computed on the raw prediction score distributions (not AUC differences) to quantify the shift in model confidence. We chose this metric over AUC-based effect sizes because it captures the central tendency shift in the probability outputs, which is a more direct indicator of model sensitivity to semantic perturbations than discriminative margin alone. Multiple comparisons were corrected using the Benjamini-Hochberg procedure.
+\subsection{Evaluation and Calibration Metrics}
+Discriminative performance was assessed using the area under the receiver operating characteristic curve (ROC-AUC). To account for the single-split evaluation, 95\% confidence intervals were computed via bootstrap resampling (1,000 iterations, seed $= 42$). 
+
+To characterize the observed ``distributional compression'' and its impact on model reliability, we evaluate model calibration using the Brier score and Expected Calibration Error (ECE). The Brier score measures the mean squared difference between predicted probabilities ($f_i$) and actual outcomes ($y_i$):
+\begin{equation}
+BS = \frac{1}{N} \sum_{i=1}^{N} (f_i - y_i)^2
+\end{equation}
+ECE partitions the predicted probabilities into $M=10$ equally spaced bins ($B_m$) and computes the weighted average of the absolute difference between bin accuracy and bin confidence:
+\begin{equation}
+ECE = \sum_{m=1}^{M} \frac{|B_m|}{N} |acc(B_m) - conf(B_m)|
+\end{equation}
+
+Statistical significance for ROC-AUC differences relative to the baseline (C0) was assessed using a bootstrap paired difference test. Multiple comparisons were corrected using the Benjamini-Hochberg procedure. We also report Cohen's $d$ on the raw prediction score distributions to quantify the shift in model confidence induced by semantic perturbations.
 
 \subsection{Robustness and Cross-Model Validation}
 \label{sec:implementation_robustness}
