@@ -1,0 +1,173 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\def\@LN@column{1}
+\babel@aux{english}{}
+\def\@LN@column{1}
+\citation{vamathevan2019applications}
+\citation{gilmer2017neural}
+\citation{rogers2010extended}
+\citation{jimenez2020drug}
+\citation{wu2018moleculenet}
+\citation{schwaller2019molecular}
+\citation{han2024retrosynthesis}
+\citation{polak2024extracting}
+\citation{bran2024chemcrow}
+\citation{guo2023benchmark}
+\citation{ross2022large}
+\citation{edwards2022text2mol}
+\citation{white2023assessment}
+\citation{yuan2025hallucination}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{3}{section.1}\protected@file@percent }
+\def\@LN@column{1}
+\citation{wu2018moleculenet}
+\citation{gilmer2017neural}
+\citation{ying2021transformers}
+\citation{rogers2010extended}
+\citation{bemis1996properties}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{5}{section.2}\protected@file@percent }
+\newlabel{sec:related_work}{{2}{5}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Molecular Property Prediction}{5}{subsection.2.1}\protected@file@percent }
+\citation{schwaller2019molecular}
+\citation{han2024retrosynthesis}
+\citation{guo2023benchmark}
+\citation{ross2022large}
+\citation{edwards2022text2mol}
+\citation{bran2024chemcrow}
+\citation{polak2024extracting}
+\citation{white2023assessment}
+\citation{ji2023survey}
+\citation{huang2023survey}
+\citation{ramos2024review}
+\citation{chen2023llm4mol}
+\citation{yuan2025hallucination}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}LLMs in Molecular Science}{6}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Hallucination in Scientific LLM Applications}{6}{subsection.2.3}\protected@file@percent }
+\citation{landrum2023rdkit}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methods}{7}{section.3}\protected@file@percent }
+\newlabel{sec:methods}{{3}{7}{Methods}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Heuristic Categorization Scheme}{7}{subsection.3.1}\protected@file@percent }
+\citation{chen2023llm4mol}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Experimental Conditions}{8}{subsection.3.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Prediction Protocol}{9}{subsection.3.3}\protected@file@percent }
+\citation{ramsundar2019deepchem}
+\citation{bemis1996properties}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Implementation Details}{10}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:implementation}{{3.4}{10}{Implementation Details}{subsection.3.4}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Evaluation and Calibration Metrics}{11}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6}Robustness and Cross-Model Validation}{11}{subsection.3.6}\protected@file@percent }
+\newlabel{sec:implementation_robustness}{{3.6}{11}{Robustness and Cross-Model Validation}{subsection.3.6}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Results}{12}{section.4}\protected@file@percent }
+\newlabel{sec:results}{{4}{12}{Results}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Predictive Performance Across Conditions}{12}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}BBBP (Physicochemical Task)}{12}{subsubsection.4.1.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Predictive performance (ROC-AUC) across nine augmentation conditions on BBBP and BACE. Bootstrap 95\% confidence intervals computed over 1,000 resamples. Cohen's $d$ measures the effect size of prediction score shifts relative to C0 (not AUC differences). $p$-values are corrected for multiple comparisons using the Benjamini-Hochberg procedure. Boldface indicates the highest ROC-AUC among augmented LLM conditions (excluding C0 baseline) per dataset.}}{13}{table.1}\protected@file@percent }
+\newlabel{tab:results}{{1}{13}{Predictive performance (ROC-AUC) across nine augmentation conditions on BBBP and BACE. Bootstrap 95\% confidence intervals computed over 1,000 resamples. Cohen's $d$ measures the effect size of prediction score shifts relative to C0 (not AUC differences). $p$-values are corrected for multiple comparisons using the Benjamini-Hochberg procedure. Boldface indicates the highest ROC-AUC among augmented LLM conditions (excluding C0 baseline) per dataset}{table.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bootstrap Stability.}{13}{section*.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Task-dependent divergence in semantic augmentation sensitivity across perturbation conditions. Prompt-constrained structural augmentation (C4a) is associated with the largest directional shift on BBBP, though post-hoc verification reveals C4a outputs are predominantly Contextual Confabulation rather than Structural Phantom type (see Section~\ref {sec:taxonomy}).}}{14}{figure.1}\protected@file@percent }
+\newlabel{fig:performance}{{1}{14}{Task-dependent divergence in semantic augmentation sensitivity across perturbation conditions. Prompt-constrained structural augmentation (C4a) is associated with the largest directional shift on BBBP, though post-hoc verification reveals C4a outputs are predominantly Contextual Confabulation rather than Structural Phantom type (see Section~\ref {sec:taxonomy})}{figure.1}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Bootstrapped ROC-AUC distributions (BBBP, $n=1{,}000$ resamples) for structural augmentation (C4a) relative to the SMILES baseline (C0). C4a maintains a positive margin in 97.6\% of resamples.}}{15}{figure.2}\protected@file@percent }
+\newlabel{fig:bootstrap}{{2}{15}{Bootstrapped ROC-AUC distributions (BBBP, $n=1{,}000$ resamples) for structural augmentation (C4a) relative to the SMILES baseline (C0). C4a maintains a positive margin in 97.6\% of resamples}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}BACE (Enzymatic Task)}{15}{subsubsection.4.1.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Reliability diagram for BBBP across the primary evaluation conditions (C0, C3, C4a).}}{16}{figure.3}\protected@file@percent }
+\newlabel{fig:reliability_bbbp}{{3}{16}{Reliability diagram for BBBP across the primary evaluation conditions (C0, C3, C4a)}{figure.3}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Calibration metrics (Brier Score and Expected Calibration Error) for selected conditions on BBBP and BACE. Higher values indicate worse calibration. The substantial increase under C3 on BACE quantifies the observed distributional compression effect; C4a largely preserves or improves baseline calibration on both tasks.}}{17}{table.2}\protected@file@percent }
+\newlabel{tab:calibration}{{2}{17}{Calibration metrics (Brier Score and Expected Calibration Error) for selected conditions on BBBP and BACE. Higher values indicate worse calibration. The substantial increase under C3 on BACE quantifies the observed distributional compression effect; C4a largely preserves or improves baseline calibration on both tasks}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Hallucination augmentation induces pronounced distributional compression on the BACE task, shifting the baseline bimodal prediction distribution toward a non-discriminative narrow peak near $p \approx 0.17$.}}{17}{figure.4}\protected@file@percent }
+\newlabel{fig:negativity}{{4}{17}{Hallucination augmentation induces pronounced distributional compression on the BACE task, shifting the baseline bimodal prediction distribution toward a non-discriminative narrow peak near $p \approx 0.17$}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Distribution of Hallucination Types}{17}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:taxonomy}{{4.2}{17}{Distribution of Hallucination Types}{subsection.4.2}{}}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Reliability diagram (BACE) illustrating the severe calibration failure induced by free hallucination (C3). The curve deviates substantially from the ideal diagonal, reflecting the distributional compression toward $p \approx 0.17$.}}{18}{figure.5}\protected@file@percent }
+\newlabel{fig:reliability}{{5}{18}{Reliability diagram (BACE) illustrating the severe calibration failure induced by free hallucination (C3). The curve deviates substantially from the ideal diagonal, reflecting the distributional compression toward $p \approx 0.17$}{figure.5}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Post-hoc taxonomy classifier verification of prompt-constrained conditions (C4a--c). ``Target'' indicates the intended hallucination type based on prompt design. Compliance rate = proportion classified as the target type. Verification was applied to a representative sample of $n=47$--49 molecules from the BBBP test set.}}{19}{table.3}\protected@file@percent }
+\newlabel{tab:c4_compliance}{{3}{19}{Post-hoc taxonomy classifier verification of prompt-constrained conditions (C4a--c). ``Target'' indicates the intended hallucination type based on prompt design. Compliance rate = proportion classified as the target type. Verification was applied to a representative sample of $n=47$--49 molecules from the BBBP test set}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Robustness and Cross-Model Generalization}{19}{subsection.4.3}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribution of hallucination types in naturally generated (C3) descriptions. Contextual Confabulation (CC) dominates at approximately 80\%, with Structural Phantom (SP) occurring rarely (2.4\% of BBBP outputs). This distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c conditions were verified separately and are discussed in the text.}}{20}{figure.6}\protected@file@percent }
+\newlabel{fig:taxonomy}{{6}{20}{Distribution of hallucination types in naturally generated (C3) descriptions. Contextual Confabulation (CC) dominates at approximately 80\%, with Structural Phantom (SP) occurring rarely (2.4\% of BBBP outputs). This distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c conditions were verified separately and are discussed in the text}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Generalization Across Task Regimes}{20}{subsection.4.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Robustness and generalization of the hallucination effect. Llama-8B values represent mean $\pm $ standard deviation across three independent seeds (42, 123, 777). Llama-70B results are based on a single inference run (seed 42), precluding variance estimation.}}{21}{table.4}\protected@file@percent }
+\newlabel{tab:robustness}{{4}{21}{Robustness and generalization of the hallucination effect. Llama-8B values represent mean $\pm $ standard deviation across three independent seeds (42, 123, 777). Llama-70B results are based on a single inference run (seed 42), precluding variance estimation}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Architecture-dependent response trends. While smaller models (8B) exhibit a consistent directional shift on BBBP, initial validation with a larger model (70B) shows reversed sensitivity. BACE performance was robustly degraded across both architectures.}}{21}{figure.7}\protected@file@percent }
+\newlabel{fig:scaling}{{7}{21}{Architecture-dependent response trends. While smaller models (8B) exhibit a consistent directional shift on BBBP, initial validation with a larger model (70B) shows reversed sensitivity. BACE performance was robustly degraded across both architectures}{figure.7}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Cross-task generalization of semantic sensitivity across four datasets and two task regimes. ROC-AUC is reported for classification tasks (BBBP, BACE, Tox21), while RMSE (Root Mean Square Error) is reported for the regression task (ESOL). Consistent patterns emerge: structural topic focus (C4a) preserves or slightly improves performance in physicochemical and toxicity domains, while fabrication (C3) degrades performance and calibration in enzymatic and solubility domains.}}{22}{table.5}\protected@file@percent }
+\newlabel{tab:generalization}{{5}{22}{Cross-task generalization of semantic sensitivity across four datasets and two task regimes. ROC-AUC is reported for classification tasks (BBBP, BACE, Tox21), while RMSE (Root Mean Square Error) is reported for the regression task (ESOL). Consistent patterns emerge: structural topic focus (C4a) preserves or slightly improves performance in physicochemical and toxicity domains, while fabrication (C3) degrades performance and calibration in enzymatic and solubility domains}{table.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{22}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Semantic Orientation vs.\ Factual Accuracy}{22}{subsection.5.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Distributional Compression on Enzymatic and Solubility Tasks}{23}{subsection.5.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Task-Dependent Sensitivity Across Four Benchmarks}{24}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Methodological Implications}{24}{subsection.5.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Limitations}{25}{section.6}\protected@file@percent }
+\newlabel{sec:limitations}{{6}{25}{Limitations}{section.6}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{27}{section.7}\protected@file@percent }
+\newlabel{sec:conclusion}{{7}{27}{Conclusion}{section.7}{}}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\bibstyle{unsrt}
+\bibdata{references}
+\bibcite{vamathevan2019applications}{1}
+\bibcite{gilmer2017neural}{2}
+\bibcite{rogers2010extended}{3}
+\bibcite{jimenez2020drug}{4}
+\bibcite{wu2018moleculenet}{5}
+\bibcite{schwaller2019molecular}{6}
+\bibcite{han2024retrosynthesis}{7}
+\bibcite{polak2024extracting}{8}
+\def\@LN@column{1}
+\bibcite{bran2024chemcrow}{9}
+\bibcite{guo2023benchmark}{10}
+\bibcite{ross2022large}{11}
+\bibcite{edwards2022text2mol}{12}
+\bibcite{white2023assessment}{13}
+\bibcite{yuan2025hallucination}{14}
+\bibcite{ying2021transformers}{15}
+\bibcite{bemis1996properties}{16}
+\def\@LN@column{1}
+\bibcite{ji2023survey}{17}
+\bibcite{huang2023survey}{18}
+\bibcite{ramos2024review}{19}
+\bibcite{chen2023llm4mol}{20}
+\bibcite{landrum2023rdkit}{21}
+\bibcite{ramsundar2019deepchem}{22}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{33}{appendix.A}\protected@file@percent }
+\newlabel{sec:appendix}{{A}{33}{Appendix}{appendix.A}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Prompt Templates}{33}{subsection.A.1}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Control Condition Templates}{34}{subsection.A.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Taxonomy Classifier Pseudocode}{35}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Representative Hallucination Examples}{35}{subsection.A.4}\protected@file@percent }
+\citation{landrum2023rdkit}
+\citation{ramsundar2019deepchem}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}API Failure Rates}{36}{subsection.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}Implementation Environment}{36}{subsection.A.6}\protected@file@percent }
+\gdef \@abspage@last{36}

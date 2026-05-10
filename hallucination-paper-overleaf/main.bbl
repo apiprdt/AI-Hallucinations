@@ -1,0 +1,139 @@
+\begin{thebibliography}{10}
+
+\bibitem{vamathevan2019applications}
+Jessica Vamathevan, Dominic Clark, Paul Czodrowski, Ian Dunham, Edgardo Ferran,
+  George Lee, Bin Li, Anant Madabhushi, Parantu Shah, Michaela Spitzer, and
+  Shanrong Zhao.
+\newblock Applications of machine learning in drug discovery and development.
+\newblock {\em Nature Reviews Drug Discovery}, 18(6):463--477, 2019.
+
+\bibitem{gilmer2017neural}
+Justin Gilmer, Samuel~S Schoenholz, Patrick~F Riley, Oriol Vinyals, and
+  George~E Dahl.
+\newblock Neural message passing for quantum chemistry.
+\newblock In {\em International Conference on Machine Learning}, pages
+  1263--1272. PMLR, 2017.
+
+\bibitem{rogers2010extended}
+David Rogers and Mathew Hahn.
+\newblock Extended-connectivity fingerprints.
+\newblock {\em Journal of Chemical Information and Modeling}, 50(5):742--754,
+  2010.
+
+\bibitem{jimenez2020drug}
+Jos{\'e} Jim{\'e}nez-Luna, Francesca Grisoni, and Gisbert Schneider.
+\newblock Drug discovery with explainable artificial intelligence.
+\newblock {\em Nature Machine Intelligence}, 2(10):573--584, 2020.
+
+\bibitem{wu2018moleculenet}
+Zhenqin Wu, Bharath Ramsundar, Evan~N Feinberg, Joseph Gomes, Caleb Geniesse,
+  Aneesh~S Pappu, Karl Leswing, and Vijay Pande.
+\newblock Moleculenet: a benchmark for molecular machine learning.
+\newblock {\em Chemical Science}, 9(2):513--530, 2018.
+
+\bibitem{schwaller2019molecular}
+Philippe Schwaller, Teodorico Laino, Th{\'e}ophile Gaudin, Peter Bolgar,
+  Christopher~A Hunter, Costas Bekas, and Alpha~A Lee.
+\newblock Molecular transformer: {A} model for uncertainty-calibrated chemical
+  reaction prediction.
+\newblock {\em ACS Central Science}, 5(9):1572--1583, 2019.
+
+\bibitem{han2024retrosynthesis}
+Yuqiang Han, Xiaoyang Xu, Chang-Yu Hsieh, Keyan Ding, Hongxia Xu, Renjun Xu,
+  Tingjun Hou, Qiang Zhang, and Huajun Chen.
+\newblock Retrosynthesis prediction with an iterative string editing model.
+\newblock {\em Nature Communications}, 15(1):6404, 2024.
+
+\bibitem{polak2024extracting}
+Maciej~P Polak and Dane Morgan.
+\newblock Extracting accurate materials data from research papers with
+  conversational language models and prompt engineering.
+\newblock {\em Nature Communications}, 15(1):1418, 2024.
+
+\bibitem{bran2024chemcrow}
+Andres~M Bran, Sam Cox, Oliver Schilter, Carlo Baldassari, Andrew~D White, and
+  Philippe Schwaller.
+\newblock Augmenting large language models with chemistry tools.
+\newblock {\em Nature Machine Intelligence}, 6(5):525--535, 2024.
+
+\bibitem{guo2023benchmark}
+Taicheng Guo, Kehan Guo, Bozhao Nan, Zhenwen Liang, Zhichun Guo, Nitesh~V.
+  Chawla, Olaf Wiest, and Xiangliang Zhang.
+\newblock What can large language models do in chemistry? {A} comprehensive
+  benchmark on eight tasks.
+\newblock {\em arXiv preprint arXiv:2305.18365}, 2023.
+
+\bibitem{ross2022large}
+Jerret Ross, Brian Belgodere, Vijil Chenthamarakshan, Inkit Padhi, Youssef
+  Mroueh, and Payel Das.
+\newblock Large-scale chemical language representations capture molecular
+  structure and properties.
+\newblock {\em Nature Machine Intelligence}, 4(12):1256--1264, 2022.
+
+\bibitem{edwards2022text2mol}
+Carl Edwards, ChengXiang Zhai, and Heng Ji.
+\newblock Text2mol: Cross-modal molecule retrieval with natural language
+  queries.
+\newblock In {\em Proceedings of the 2021 Conference on Empirical Methods in
+  Natural Language Processing (EMNLP)}, pages 595--607. Association for
+  Computational Linguistics, 2022.
+
+\bibitem{white2023assessment}
+Andrew~D White, Glen~M Hocky, Heta~A Gandhi, Mehrad Ansari, Sam Cox, Geemi~P
+  Wellawatte, Subarna Sasmal, Ziyue Yang, Kevin Liu, Yashraj Singh, and
+  Willma~J Pe{\~n}a~Ccoa.
+\newblock Assessment of chemistry knowledge in large language models that
+  generate code.
+\newblock {\em Digital Discovery}, 2(2):368--376, 2023.
+
+\bibitem{yuan2025hallucination}
+Shuzhou Yuan and Michael F{\"a}rber.
+\newblock Hallucinations can improve large language models in drug discovery.
+\newblock {\em arXiv preprint arXiv:2501.13824}, 2025.
+
+\bibitem{ying2021transformers}
+Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di~He,
+  Yanming Shen, and Tie-Yan Liu.
+\newblock Do transformers really perform bad for graph representation?
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~34, pages 28877--28888, 2021.
+
+\bibitem{bemis1996properties}
+Guy~W Bemis and Mark~A Murcko.
+\newblock The properties of known drugs. {1. Molecular} frameworks.
+\newblock {\em Journal of Medicinal Chemistry}, 39(15):2887--2893, 1996.
+
+\bibitem{ji2023survey}
+Ziwei Ji, Nayeon Lee, Rita Frieske, Tiezheng Yu, Dan Su, Yan Xu, Etsuko Ishii,
+  Yejin Bang, Andrea Madotto, and Pascale Fung.
+\newblock Survey of hallucination in natural language generation.
+\newblock {\em ACM Computing Surveys}, 55(12):1--38, 2023.
+
+\bibitem{huang2023survey}
+Lei Huang, Weijiang Yu, Weitao Ma, Weihong Zhong, Zhangyin Feng, Haotian Wang,
+  Qianglong Chen, Weihua Peng, Xiaocheng Feng, Bing Qin, and Ting Liu.
+\newblock A survey on hallucination in large language models: {Principles},
+  taxonomy, challenges, and open questions.
+\newblock {\em arXiv preprint arXiv:2311.05232}, 2023.
+
+\bibitem{ramos2024review}
+Mayk~Caldas Ramos, Christopher~J Collison, and Andrew~D White.
+\newblock A review of large language models and autonomous agents in chemistry.
+\newblock {\em arXiv preprint arXiv:2407.01603}, 2024.
+
+\bibitem{chen2023llm4mol}
+Qian Chen, Huayi Tang, Zhirui Yang, Hong Liang, and Yong Liu.
+\newblock Can large language models empower molecular property prediction?
+\newblock {\em arXiv preprint arXiv:2307.07443}, 2023.
+
+\bibitem{landrum2023rdkit}
+Greg Landrum et~al.
+\newblock {RDKit}: Open-source cheminformatics, version 2023.09.1.
+\newblock \url{https://www.rdkit.org}, 2023.
+
+\bibitem{ramsundar2019deepchem}
+Bharath Ramsundar, Peter Eastman, Patrick Walters, and Vijay Pande.
+\newblock {\em Deep Learning for the Life Sciences}.
+\newblock O'Reilly Media, 2019.
+
+\end{thebibliography}

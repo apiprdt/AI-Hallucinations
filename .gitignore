@@ -19,3 +19,9 @@ __pycache__/
 hallucination_env/
 .ipynb_checkpoints/
 scratch/
+
+# Packaging
+*.zip
+manuskrip_wiley_flat/
+submission_final/
+submission_molinf/

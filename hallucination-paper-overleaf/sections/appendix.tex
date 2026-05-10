@@ -14,7 +14,15 @@ Respond with ONLY a number between 0 and 1.
 Nothing else.
 \end{verbatim}
 
-The augmentation line is omitted for C0. Task descriptions: ``penetrate the blood-brain barrier'' (BBBP), ``inhibit the BACE-1 enzyme'' (BACE).
+The augmentation line is omitted for C0. Task descriptions used for each benchmark:
+\begin{itemize}
+    \item BBBP: ``penetrate the blood-brain barrier''
+    \item BACE: ``inhibit the BACE-1 enzyme''
+    \item Tox21: ``exhibit toxicity in the nuclear receptor 
+    androgen receptor (NR-AR) assay''
+    \item ESOL: ``have low aqueous solubility, consistent 
+    with a logS value below the molecule's expected range''
+\end{itemize}
 
 Hallucination generation used temperature $= 0.9$, \texttt{max\_tokens} $= 150$, with the following type-specific prompts:
 
@@ -71,4 +79,4 @@ Vocabulary audit confirmed 0\% overlap with a curated chemical/biological term l
 Across the BBBP experiment (204 molecules $\times$ 9 conditions $= 1{,}836$ predictions), API failures (rate limits, parsing errors) that defaulted to $p = 0.5$ accounted for less than 2\% of total predictions. The exact count is logged in the experiment checkpoint files.
 
 \subsection{Implementation Environment}
-Experiments were executed on a local system (Windows 11) using the Groq API for LLM inference. Total runtime for the pilot study was approximately 4.5 hours. Library versions: \texttt{rdkit-pypi} v2023.9.1, \texttt{deepchem} v2.7.1, \texttt{groq} Python SDK, \texttt{scipy} v1.11, \texttt{scikit-learn} v1.3.
+Experiments were executed on a local system (Windows 11) using the Groq API for LLM inference. Total runtime for the pilot study was approximately 4.5 hours. Library versions: \texttt{rdkit-pypi} v2023.9.1~\cite{landrum2023rdkit}, \texttt{deepchem} v2.7.1~\cite{ramsundar2019deepchem}, \texttt{groq} Python SDK, \texttt{scipy} v1.11, \texttt{scikit-learn} v1.3.

@@ -1,35 +1,38 @@
-# Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction
+# Semantic Orientation Effects in Zero-Shot LLM Molecular Inference
 
-**Investigating the Impact of Structured Hallucinations on LLM Molecular Reasoning**
+**Task-Dependent Sensitivity and Distributional Compression**
 
-This repository contains the source code, processed datasets, and manuscript LaTeX files for our study on how structured semantic perturbations (hallucinations) influence the performance of Large Language Models (LLMs) in molecular property prediction tasks.
+This repository contains the complete source code, evaluation datasets, and analysis pipelines for our study investigating how semantic orientation—specifically, the structural topic focus vs. semantic fabrication of prompted textual augmentations—modulates zero-shot molecular property predictions in Large Language Models (LLMs).
 
 ## 🧪 Overview
 
-We introduce a controlled semantic perturbation framework to evaluate how structured hallucination types—including Structural Phantom, Property Inversion, and Mechanism Fabrication—interact with model scale (Llama-8B vs. Llama-70B) and task domain (BBBP and BACE).
+We introduce a controlled semantic perturbation framework to evaluate how factually incorrect or structured "hallucinations" interact with prediction tasks. We evaluated the `Llama-3.1-8B-Instant` model across four benchmarks: BBBP, BACE, Tox21, and ESOL.
 
 ### Key Findings:
-- **Orientation Semantics**: Experimental evidence suggests that the structural topic focus of a perturbation, rather than its factual accuracy, is a primary driver of performance shifts in LLM-based molecular property prediction.
-- **Task-Specific Sensitivity**: We demonstrate a robust divergence between task domains; enzymatic tasks (BACE) exhibit significant performance degradation and "distributional compression" toward a low-confidence state, while physicochemical tasks (BBBP) show directional sensitivity to structural prompts.
-- **Informative Hallucination**: Our framework characterizes hallucinations not as mere errors, but as activations of latent semantic priors that can be leveraged for probing model calibration.
-- **Semantic Grounding**: Multi-seed random-permutation controls (C5) confirm that observed effects are driven by semantic alignment rather than scientific register or stylistic priming alone.
+- **Distributional Compression**: On enzymatic (BACE) and solubility (ESOL) tasks, semantic fabrication systematically destroys the model's discriminative capacity. The prediction distribution collapses into a narrow, low-confidence state, marked by a massive drop in Shannon Entropy and high Kullback-Leibler divergence ($D_{KL} > 14$).
+- **Task-Dependent Sensitivity**: On general physicochemical tasks (BBBP, Tox21), prompt-constrained structural topic focus produces directional positive shifts in predictive discriminability (Cohen's $d = +0.51$) even without factual taxonomic correctness.
+- **Semantic Conditioning**: We demonstrate that the semantic orientation of a prompt can drive significant behavioral shifts regardless of its factual accuracy, functioning as a form of semantic conditioning that modulates the LLM's inference state.
+- **AI Taxonomy Validation**: LLM-as-judge evaluation demonstrates that strictly categorizing generative chemical text (e.g., Structural Phantoms vs. Mechanism Fabrication) is highly ambiguous, supporting the treatment of such categories as *prompt design intents* rather than definitive semantic truths.
 
 ## 📁 Repository Structure
 
 ```
 AI-Hallucinations/
-├── src/                          # Core source code
-│   ├── publication_figures.py    # Main figure generation
-│   ├── statistical_analysis.py   # Bootstrap ROC-AUC testing engine
-│   └── taxonomy_classifier.py    # Heuristic hallucination classifier
-├── hallucination-paper-overleaf/ # LaTeX manuscript (Springer Nature Template)
-├── data/processed/               # Final evaluation datasets for reproducibility
-├── prompts/                      # Experimental prompt templates
+├── src/                          # Analysis scripts
+│   ├── ai_taxonomy_validator.py  # LLM-as-judge taxonomy classification
+│   ├── deepened_analysis.py      # Entropy, KL divergence, Cohen's d
+│   ├── calibration_deepening.py  # Brier score decomposition
+│   └── publication_figures.py    # Main figure generation
+├── hallucination-paper-overleaf/ # LaTeX manuscript files
+├── data/processed/               # Final inference results (JSON/CSV)
 ├── requirements.txt              # Python dependencies
+├── run_all.py                    # Master reproduction script
 └── README.md                     # This file
 ```
 
 ## 🚀 Reproducibility
+
+This project was built to be fully reproducible without requiring expensive GPU resources. All analytical pipelines run on the pre-computed API checkpoints.
 
 ### 1. Installation
 ```bash
@@ -38,35 +41,27 @@ cd AI-Hallucinations
 pip install -r requirements.txt
 ```
 
-### 2. Run Statistical Analysis
-Generate ROC-AUC values and confidence intervals reported in the manuscript:
+### 2. Run All Analysis Pipelines
+Execute the master reproduction script to run the deepened statistical analyses, taxonomy classification, and figure generation:
 ```bash
-python src/statistical_analysis.py data/processed/results_bbbp_checkpoint.json
-python src/statistical_analysis.py data/processed/results_bace_checkpoint.json
+python run_all.py
 ```
 
-### 3. Generate Figures
-Regenerate publication-quality figures:
-```bash
-python src/publication_figures.py
-python src/generate_fig5.py
-```
-
-## 📊 Experimental Conditions
+## 📊 Evaluation Framework
 
 | Code | Condition | Description |
 |------|-----------|-------------|
 | C0   | Baseline  | SMILES only |
 | C1   | Factual   | RDKit descriptors |
 | C2   | Chem Priming | Scientific gibberish control |
-| C3   | Free Hallu | Unconstrained hallucination |
-| C4a  | SP        | Structural Phantom (Prompt-constrained) |
+| C3   | Free Hallucination | Unconstrained semantic fabrication |
+| C4a  | Structural Topic | Prompt-constrained structural focus |
 | C5   | Random-Perm | Semantic permutation control |
 
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Citation
-*Manuscript under review at the Journal of Molecular Modeling (Springer).*
+*Manuscript under review at Molecular Informatics (Wiley).*
 If you use this work in your research, please cite:
-> Erdita, M. A. (2026). Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction. *Journal of Molecular Modeling* (In Submission).
+> Erdita, M. A. (2026). Semantic Orientation Effects in Zero-Shot LLM Molecular Inference: Task-Dependent Sensitivity and Distributional Compression. *Molecular Informatics* (In Submission).

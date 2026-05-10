@@ -5,7 +5,7 @@ import sys
 # Fix encoding for Windows console
 sys.stdout.reconfigure(encoding='utf-8')
 
-with open("results_bbbp_checkpoint.json", "r") as f:
+with open("data/processed/results_bbbp_checkpoint.json", "r") as f:
     ckpt = json.load(f)
 
 results_list = [ckpt["results"][str(i)] for i in range(ckpt["metadata"]["total_molecules"])]

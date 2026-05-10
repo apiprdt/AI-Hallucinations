@@ -1,25 +1,108 @@
 \section{Discussion}
 
-The results demonstrate that LLM-based molecular property prediction is sensitive to structured semantic perturbations, with the direction and magnitude of the effect being highly dependent on the task domain.
+The results of this study suggest that LLM-based molecular 
+property prediction exhibits systematic sensitivity to structured 
+semantic perturbations, with the direction and magnitude of 
+observed effects depending on the task domain.
 
-\subsection{Taxonomy Compliance and Prompt Sensitivity}
-\subsubsection*{Observation.} Post-hoc verification revealed a significant gap between prompt design intent and the actual taxonomy of generated hallucinations. In particular, the Structural Phantom (SP) operator (C4a) failed to elicit specific structural fabrications in our sample (0\% compliance), despite being associated with the largest directional ROC-AUC shift on BBBP. Conversely, Property Inversion (C4b) and Mechanism Fabrication (C4c) showed higher compliance rates ($\sim$20--25\%).
+\subsection{Textual Augmentation as Semantic Conditioning}
+A primary finding of this study is that the \textit{semantic 
+orientation} induced by a prompt---the topical focus on specific 
+molecular features---is a consistent driver of predictive 
+shifts, often more so than the factual taxonomic correctness of the generated 
+text. This was observed in the C4a (Structural) condition, 
+where the LLM generated contextually plausible descriptions 
+focused on structural features but failed to satisfy the strict 
+Structural Phantom definition (i.e., referencing absent 
+elements). Despite this taxonomic non-compliance, C4a 
+consistently yielded the largest directional ROC-AUC 
+improvements on BBBP and Tox21 while maintaining baseline 
+stability on BACE and ESOL.
 
-\subsubsection*{Alternative Explanations.} The low SP rate may reflect prompt design interactions rather than an intrinsic model bias; different prompt formulations or higher temperatures might elicit more structurally specific outputs. Additionally, our rule-based classifier may conservatively undercount SP instances if the generated text employs structural synonyms not captured by our heuristic keyword dictionary.
+We frame this pattern as an effect of \textit{semantic conditioning}: the 
+observation that factually non-compliant but topically 
+structured text can systematically shift prediction behavior 
+in a task-dependent direction. We emphasize that this 
+characterization is descriptive and behavioral---it refers to 
+the observed co-occurrence of structural topic focus and 
+directional performance shifts, and does not constitute a 
+mechanistic claim about the model's internal processing.
 
-\subsection{Semantic Orientation vs.\ Factual Accuracy}
-\subsubsection*{Observation.} A key finding of this study is the divergence between prompt intent and factuality in the C4a (Structural) condition. Despite achieving the highest directional ROC-AUC on BBBP, post-hoc verification revealed a 0\% Structural Phantom classification rate for C4a. The model generated structurally-focused contextual descriptions rather than specific structural fabrications.
+\subsection{Distributional Compression on Enzymatic and 
+Solubility Tasks}
+The consistent performance degradation observed on BACE and ESOL 
+provides evidence that semantic fabrication is not uniformly 
+disruptive but is systematically harmful in specific task 
+regimes. Unlike physicochemical tasks, enzymatic inhibition 
+(BACE) and aqueous solubility (ESOL) appear particularly 
+sensitive to semantic perturbation.
 
-\subsubsection*{Interpretation.} This suggests that the \textit{semantic orientation} of the perturbation---the topical focus induced by the prompt---may be a more potent driver of performance shifts than the factual taxonomic correctness of the generated text. We characterize this phenomenon as a form of \textit{informative hallucination}, where the model's response to structured textual modifications reveals latent chemical associations that are statistically relevant to the prediction task, even when they do not conform to intended factual categories. This indicates that LLMs may benefit from semantic regularization through structured prompts that anchor the model's latent state to task-relevant chemical domains. These effects resemble calibration-sensitive shifts in confidence structure rather than simple ranking perturbations, suggesting that semantic augmentation modulates the model's internal probability density.
+Quantitatively, this is reflected in the calibration metrics 
+reported in Table~\ref{tab:calibration}. Under the C3 
+condition on BACE, Brier Score increased from 0.244 to 0.438 
+and ECE from 0.151 to 0.439---indicating that hallucination 
+augmentation does not merely introduce ranking noise, but 
+systematically degrades probability calibration. This 
+behavioral pattern, which we term \textit{distributional 
+compression}, consists of a collapse of the model's output 
+distribution toward a narrow low-confidence peak near 
+$p \approx 0.17$, regardless of true label. This is distinct 
+from regression toward the class prior (60.5\% positive), 
+indicating a genuine loss of discriminative signal rather 
+than label-frequency anchoring.
 
-\subsection{Task-Dependent Asymmetry}
-\subsubsection*{Observation.} On BBBP, hallucination augmentation (C3, C4a--c) was associated with directionally improved ROC-AUC relative to the SMILES-only baseline (C0: 0.533). Notably, the non-chemical gibberish condition (C2b, 0.553) yielded a higher ROC-AUC than purely factual augmentation (C1, 0.541). On the BACE test set ($N=152$), a contrasting and highly robust pattern was observed. The baseline (C0, Seed 42) yielded a ROC-AUC of 0.674 [0.592, 0.759], while the multi-seed mean was slightly lower at 0.644 (Table~\ref{tab:robustness}). Unlike the exploratory trends on BBBP, nearly all hallucination-augmented conditions on BACE produced statistically significant and substantial performance degradation: free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592] ($p = 0.016$), C4b to 0.542 ($p = 0.011$), and C4c to 0.566 ($p = 0.083$). The notable exception remained C4a (structural augmentation), which largely preserved baseline performance (0.666, $p = 0.808$).
+One plausible account is that fabricated enzymatic or 
+solubility claims introduce conflicting contextual signals 
+that override the limited structural information conveyed 
+by the SMILES input, collapsing the model's output toward 
+a non-discriminative state. However, we note that this 
+account remains speculative in the absence of mechanistic 
+investigation.
 
-\subsubsection*{Interpretation.} This task-dependent asymmetry suggests that augmentation utility is sensitive to the alignment between perturbation content and task knowledge requirements. The LLM's pre-training corpus likely encodes more robust representations of general physicochemical properties (relevant to BBBP) than specific enzymatic mechanisms (BACE), leading to constructive perturbation in the former and destructive interference in the latter.
+\subsection{Generalization and Pre-training Artifacts}
+The contrast between BBBP/Tox21 and BACE/ESOL suggests that 
+task sensitivity may correlate with the prevalence of 
+structural reasoning vs.\ specific mechanistic retrieval 
+in the pre-training distribution. General physicochemical 
+properties---such as blood-brain barrier permeability and 
+broad toxicity---are more broadly represented in the 
+scientific literature in association with diverse molecular 
+scaffolds. In these domains, structural topic focus (C4a) 
+may prime the model's contextual inference toward relevant 
+sub-graph patterns, producing directional ROC-AUC 
+improvements even without factual accuracy. Specific enzymatic mechanisms and 
+quantitative solubility, by contrast, may be less densely 
+covered in general-domain pre-training corpora, making 
+predictions in these regimes more susceptible to disruption 
+by fabricated claims.
 
-\subsubsection*{Alternative Explanations.} We emphasize that these observed shifts on BBBP do not demonstrate that hallucinations enhance genuine molecular reasoning. The improvements may partially reflect latent statistical correlations introduced by textual perturbation that happen to align with task-relevant physicochemical descriptors in the BBBP evaluation set. The C2b result noted above (where gibberish outperforms factual context) further suggests that the LLM may be responding to prompt length, formatting, or linguistic complexity, rather than extracting utility solely from relevant semantic content. This implies that textual context, regardless of factual utility, may serve as a stylistic anchor that influences the model's latent state. While textual perturbations induce directional shifts in raw prediction scores, none of the observed ROC-AUC improvements on the BBBP dataset reached statistical significance ($p > 0.05$). The BACE degradation, by contrast, was statistically significant across most conditions.
+We note that this interpretation is speculative and cannot 
+be verified without targeted analysis of training data 
+composition or model internals, which is beyond the scope 
+of this exploratory study.
 
-\subsection{Semantic Content vs.\ Stylistic Priming}
-\subsubsection*{Observation.} The random-permutation control (C5) preserved scientific register while disrupting molecule-description semantic alignment. C5 produced no discriminative improvement over baseline (ROC-AUC 0.481 vs.\ 0.533 for C0 on BBBP), despite utilizing text that is linguistically indistinguishable from C3 hallucinations.
+The observed cross-task consistency also suggests that 
+semantic perturbation experiments of this kind may serve 
+as a lightweight behavioral probe for characterizing 
+task-specific inference sensitivity in LLMs---one that 
+does not require access to model weights or internal 
+representations, and can be applied to black-box API-based 
+systems. We make no stronger claim about the mechanistic 
+basis of this sensitivity.
 
-\subsubsection*{Interpretation.} This suggests that the observed performance shifts are not merely artifacts of scientific register or stylistic priming. Rather, the molecule-description alignment---the semantic link between the SMILES input and the textual augmentation---is necessary for the perturbation to influence prediction behavior. This supports our hypothesis that structured perturbations interact with the model's latent representation of the molecule.
+\subsection{Methodological Implications}
+Our findings carry several practical implications for 
+LLM-augmented cheminformatics. First, the consistent 
+advantage of structural topic-focus prompting (C4a) over 
+factual RDKit descriptors (C1) on physicochemical tasks 
+suggests that topically oriented textual context may 
+sometimes provide a more effective inference substrate for 
+general-purpose LLMs than numerical descriptor strings, 
+which may not integrate naturally into language-based 
+reasoning chains. Second, the severe calibration failure 
+on BACE---reflected in ECE values approaching 0.44---
+underscores the risk of deploying LLM-augmented 
+predictions in enzymatic domains without explicit 
+uncertainty quantification. Future work should examine 
+whether calibration-aware prompting strategies or 
+post-hoc recalibration can mitigate this effect.

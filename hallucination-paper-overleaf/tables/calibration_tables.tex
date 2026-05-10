@@ -1,14 +1,17 @@
 \begin{table}[t]
 \centering
-\caption{Calibration metrics (Brier Score and Expected Calibration Error) across selected conditions. A significant increase in both metrics on BACE under hallucination (C3) quantifies the observed ``distributional compression'' and loss of discriminative reliability.}
+\caption{Calibration metrics (Brier Score and Expected Calibration Error) for selected conditions on BBBP and BACE. Higher values indicate worse calibration. The substantial increase under C3 on BACE quantifies the observed distributional compression effect; C4a largely preserves or improves baseline calibration on both tasks.}
 \label{tab:calibration}
-\begin{tabular}{@{}lccccc@{}}
+\begin{tabular}{lccccc}
 \toprule
-\textbf{Condition} & \multicolumn{2}{c}{\textbf{BBBP}} & & \multicolumn{2}{c}{\textbf{BACE}} \\ \cmidrule(lr){2-3} \cmidrule(lr){5-6}
+\textbf{Condition} & \multicolumn{2}{c}{\textbf{BBBP}} & & \multicolumn{2}{c}{\textbf{BACE}} \\ 
+\cmidrule(lr){2-3} \cmidrule(lr){5-6}
  & Brier $\downarrow$ & ECE $\downarrow$ & & Brier $\downarrow$ & ECE $\downarrow$ \\ \midrule
-C0 (Baseline) & 0.271 & 0.154 & & 0.244 & 0.151 \\
-C2 (Priming)  & 0.267 & 0.161 & & 0.263 & 0.160 \\
-C3 (Hallu)    & 0.254 & 0.100 & & \textbf{0.438} & \textbf{0.439} \\
+C0 (Baseline)      & 0.271 & 0.154 & & 0.244 & 0.151 \\
+C1 (Factual)       & 0.270 & 0.150 & & 0.354 & 0.320 \\
+C2 (Priming)       & 0.267 & 0.161 & & 0.263 & 0.160 \\
+C3 (Hallucination) & 0.254 & 0.100 & & \textbf{0.438} & \textbf{0.439} \\
+C4a (Structural)   & 0.245 & 0.112 & & 0.223 & 0.069 \\
 \bottomrule
 \end{tabular}
 \end{table}

@@ -5,11 +5,11 @@
 
 Table~\ref{tab:results} and Figure~\ref{fig:performance} summarize the primary ROC-AUC scores, bootstrap 95\% confidence intervals, and statistical comparisons for all nine conditions on both datasets, using a fixed inference seed (42) as the primary benchmark. To assess the stability of these observations across stochastic variations, multi-seed robustness results for selected conditions are provided in Table~\ref{tab:robustness}.
 
-\input{tables/results_tables}
+\input{results_tables}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{figures/figure1_performance_comparison.png}
+    \includegraphics[width=\linewidth]{figure1_performance_comparison.png}
     \caption{Task-dependent divergence in semantic augmentation sensitivity across perturbation conditions. Prompt-constrained structural augmentation (C4a) is associated with the largest directional shift on BBBP, though post-hoc verification reveals C4a outputs are predominantly Contextual Confabulation rather than Structural Phantom type (see Section~\ref{sec:taxonomy}).}
     \label{fig:performance}
 \end{figure}
@@ -21,42 +21,69 @@ The LLM baseline (C0, SMILES only) yielded a ROC-AUC of 0.533 [0.471, 0.593] on 
 
 Free hallucination (C3) shifted ROC-AUC to 0.593 [0.519, 0.664]. Among category-specific conditions, prompt-constrained structural augmentation (C4a) yielded the highest observed ROC-AUC of 0.626 [0.548, 0.698], followed by Mechanism Fabrication (C4c, 0.611) and Property Inversion (C4b, 0.563). We note that post-hoc classifier verification of C4a outputs (Section~\ref{sec:taxonomy}) revealed a 0\% Structural Phantom classification rate, indicating that C4a functions as a structural topic-focused perturbation rather than a SP hallucination condition in the strict taxonomic sense. 
 
-\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The directional advantage of structural augmentation (C4a) over the LLM baseline (C0) was consistent, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) exceeded the baseline in 87.7\% of resamples. We note that bootstrap ranking consistency measures directional stability (i.e., how often C4a $>$ C0 across resampled test sets), whereas the BH-corrected $p$-value tests whether the \textit{magnitude} of the AUC difference is significant after multiple comparison correction. High directional consistency with non-significant $p$-values indicates a reproducible but small effect relative to the test set variability.
+\paragraph{Bootstrap Stability.} To account for the single-split evaluation, we computed ranking stability across 1,000 bootstrap resamples (Figure~\ref{fig:bootstrap}). The directional advantage of structural augmentation (C4a) over the LLM baseline (C0) was consistent, maintaining a positive margin in 97.6\% of resamples. Free hallucination (C3) exceeded the baseline in 87.7\% of resamples.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/figure2_bootstrap_stability.png}
-    \caption{Bootstrapped ROC-AUC distributions (BBBP, $n=1{,}000$ resamples) for structural augmentation (C4a) relative to the SMILES baseline (C0). C4a maintains a positive margin in 97.6\% of resamples.}
+    \includegraphics[width=0.8\linewidth]{figure2_bootstrap_stability.png}
+    \caption{Bootstrap distributions of ROC-AUC across hallucination conditions on the BBBP dataset ($B=1000$ iterations). Prompt-constrained structural augmentation (C4a) produces a directional rightward shift (higher performance), whereas contextual confabulations (CC) cluster closely with baseline (C0), indicating differential sensitivity to specific semantic orientations.}
     \label{fig:bootstrap}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figure3_negativity_collapse.png}
+    \caption{Hallucination augmentation induces pronounced distributional compression on the BACE task, shifting the baseline bimodal prediction distribution toward a non-discriminative narrow peak near $p \approx 0.17$.}
+    \label{fig:negativity}
 \end{figure}
 
 The random-permutation semantic control (C5) yielded 0.481 [0.408, 0.554] on the primary seed. To ensure this was not biased by a single anomalous shuffle, we validated the C5 condition across multiple random permutation seeds. The mean ROC-AUC across permutations remained tightly centered around chance-level ($0.49 \pm 0.02$), at or below the baseline C0 and substantially below C3. This suggests that the scientific register of hallucinated text alone does not account for the observed directional shifts, and that disrupting semantic alignment consistently eliminates the predictive effect of hallucinated descriptions.
 
 \subsubsection{BACE (Enzymatic Task)}
-On the BACE test set ($N=152$), a contrasting and highly robust pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.592, 0.759]. Unlike the exploratory trends on BBBP, nearly all hallucination-augmented conditions on BACE produced statistically significant and substantial performance degradation: free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592] ($p = 0.016$). This degradation was accompanied by a severe calibration failure; the Brier score nearly doubled from 0.244 (C0) to 0.438 (C3), and the ECE increased from 0.151 to 0.439 (Table~\ref{tab:calibration}). 
+On the BACE test set ($N=152$), a contrasting and consistent pattern was observed. The baseline (C0) yielded a ROC-AUC of 0.674 [0.592, 0.759]. Unlike the exploratory trends on BBBP, nearly all hallucination-augmented conditions on BACE produced statistically significant and substantial performance degradation: free hallucination (C3) reduced ROC-AUC to 0.504 [0.420, 0.592] ($p = 0.016$). This degradation was accompanied by a severe calibration failure; the Brier score nearly doubled from 0.244 (C0) to 0.438 (C3), and the ECE increased from 0.151 to 0.439 (Table~\ref{tab:calibration}). 
 
-Under hallucination conditions on BACE, the distribution of predicted probabilities underwent a systematic collapse, which we term ``distributional compression.'' Predictions shifted from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. Notably, this is not a collapse to the dataset's class prior; rather, it is a genuine collapse to a low-confidence negative state. This quantitative breakdown in both discriminative capacity (ROC-AUC) and probabilistic reliability (ECE/Brier) suggests that semantic fabrication on enzymatic tasks actively interferes with the model's internal inference dynamics, shifting it to a non-informative regime.
+Under hallucination conditions on BACE, the distribution of predicted probabilities underwent a systematic collapse, which we term ``distributional compression.'' Predictions shifted from a bimodal pattern (reflecting the model's baseline discriminative behavior) to a narrow unimodal distribution centered at $p \approx 0.17$, regardless of the molecule's true label. Notably, this is not a collapse to the dataset's class prior; rather, it is a genuine collapse to a low-confidence negative state. This quantitative breakdown in both discriminative capacity (ROC-AUC) and probabilistic reliability (ECE/Brier) suggests that semantic fabrication on enzymatic tasks systematically disrupts prediction behavior, shifting the model's output distribution to a non-discriminative regime (Table~\ref{tab:calibration}, Figure~\ref{fig:reliability}).
 
-\begin{figure}[t]
+\input{calibration_tables}
+
+\subsection{Effect Size and Distributional Divergence}
+\label{sec:effect_size}
+
+To provide a standardized measure of semantic perturbation impact, we computed paired Cohen's $d$ effect sizes for the prediction probability shifts relative to the C0 baseline (Table~\ref{tab:effect_sizes}). On BBBP, free hallucination (C3) and structural augmentation (C4a) produced medium-magnitude positive shifts ($d = +0.757$ and $d = +0.514$, respectively). Conversely, on BACE, semantic fabrication induced massive negative shifts ($d = -1.532$ for C3), reinforcing the task-dependent asymmetry of the effect. We note a distinction between raw probability shifts and discriminative ranking: for instance, C4a on BACE yielded a medium positive shift in raw probabilities ($d = +0.661$) even though its ROC-AUC (0.666) remained statistically indistinct from baseline (0.674). This indicates that Cohen's $d$ captures uniform shifts in the calibration output space, whereas ROC-AUC is only sensitive to changes in the ordinal ranking of predictions.
+
+\input{effect_size_table}
+
+To formalize the ``distributional compression'' phenomenon observed on BACE, we analyzed the Shannon entropy and Kullback-Leibler (KL) divergence of the prediction distributions (Figure~\ref{fig:kl_divergence}). On BBBP, the baseline prediction entropy was 0.944, and hallucination conditions maintained similar entropy levels (e.g., 0.932 for C4a), indicating that the discriminative spread of predictions was preserved. 
+
+However, on BACE, free hallucination (C3) triggered a severe collapse in prediction entropy, plummeting from 0.948 (C0) to 0.600. This collapse is reflected in a massive KL divergence ($D_{KL} = 16.089$) between the C3 and baseline distributions. The random permutation control (C5) induced a similarly severe collapse ($D_{KL} = 14.919$, entropy 0.610), confirming that disrupting semantic alignment in the enzymatic reasoning regime systematically destroys the model's discriminative confidence state, forcing predictions into a narrow, non-informative band.
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\linewidth]{figures/figure3_negativity_collapse.png}
-    \caption{Hallucination augmentation induces pronounced distributional compression on the BACE task, shifting the baseline bimodal prediction distribution toward a non-discriminative narrow peak near $p \approx 0.17$.}
-    \label{fig:negativity}
+    \includegraphics[width=\linewidth]{figure7_kl_divergence.png}
+    \caption{Distributional divergence (Kullback-Leibler divergence) of prediction probabilities relative to the C0 baseline. On BBBP, semantic perturbations induce moderate distributional shifts while maintaining entropy. On BACE, hallucination conditions trigger massive distributional divergence associated with severe entropy collapse.}
+    \label{fig:kl_divergence}
 \end{figure}
 
 \subsection{Distribution of Hallucination Types}
 \label{sec:taxonomy}
-Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP), though $n=5$ is too small to support robust distributional claims regarding natural SP frequency. Separately, prompt-constrained structural augmentation (C4a) yielded the largest observed ROC-AUC increase on BBBP.
+Analysis of 356 naturally generated hallucinations across both datasets revealed a consistent distributional bias (Figure~\ref{fig:taxonomy}). Contextual Confabulation (CC) was the dominant category, accounting for approximately 80\% of all generated descriptions ($n=163$ of 204 for BBBP). Structural Phantom (SP) was the rarest category at 2.4\% ($n=5$ of 204 for BBBP), though $n=5$ is too small to support strong distributional claims regarding natural SP frequency. Separately, prompt-constrained structural augmentation (C4a) yielded the largest observed ROC-AUC increase on BBBP.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figure4_taxonomy_distribution.png}
+    \caption{Distribution of hallucination types generated by the LLM under the unconstrained C3 condition. Contextual Confabulation (CC) is the most frequent category across both datasets, whereas Structural Phantoms (SP) are exceptionally rare on BBBP but more common on BACE. This distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c sessions were verified separately and found to be predominantly CC, as discussed in the text.}
+    \label{fig:taxonomy}
+\end{figure}
 
 To further characterize the C4a condition, we applied the taxonomy classifier to a representative sample of C4a outputs ($n=49$; Table~\ref{tab:c4_compliance}). Contrary to design intent, 0\% of the sampled C4a texts were classified as Structural Phantom; the dominant output category was Contextual Confabulation. This finding reveals a critical limitation of prompt-constrained perturbation as a proxy for taxonomic hallucination types: the LLM generates structurally plausible but compositionally generic descriptions even when explicitly prompted for structural specificity. Consequently, the ROC-AUC shift associated with C4a is more accurately associated with structural topic focus induced by the generation prompt---which directs the model's attention toward molecular features---rather than with SP-type factual error per se. This distinction critically reframes the interpretation: what differentiates C4a from other conditions is the prompt's semantic orientation, not the hallucination category of its output. This also underscores the gap between prompt design and actual output taxonomy, a confound that future work employing taxonomy-constrained generation should address.
 
 Post-hoc classifier verification was extended to C4b and C4c outputs (Table~\ref{tab:c4_compliance}). C4b (Property Inversion prompt) achieved 25.5\% PI classification (12/47), while C4c (Mechanism Fabrication prompt) achieved 20.4\% MF classification (10/49). All three conditions were dominated by Contextual Confabulation (CC $\geq$ 74\%), confirming that the gap between prompt design intent and actual output taxonomy is systematic across all perturbation operators, not unique to C4a. The compliance gradient---0\% for C4a, 25.5\% for C4b, 20.4\% for C4c---suggests that property- and mechanism-focused prompts partially succeed in eliciting their target categories, whereas structural prompts fail entirely under the current heuristic classifier.
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
 \caption{Post-hoc taxonomy classifier verification of prompt-constrained conditions (C4a--c). ``Target'' indicates the intended hallucination type based on prompt design. Compliance rate = proportion classified as the target type. Verification was applied to a representative sample of $n=47$--49 molecules from the BBBP test set.}
 \label{tab:c4_compliance}
-\begin{tabular}{@{}lcccccr@{}}
+\begin{tabular}{lcccccr}
 \toprule
 \textbf{Condition} & \textbf{Target} & $n$ & \textbf{SP} & \textbf{PI} & \textbf{MF} & \textbf{CC} \\ \midrule
 C4a (Structural)  & SP & 49 & 0 (0\%)    & 0          & 0           & 49 (100\%) \\
@@ -66,29 +93,41 @@ C4c (Mechanism)   & MF & 49 & 1 (2.0\%)  & 0          & 10 (20.4\%) & 38 (77.6\%
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.8\linewidth]{figures/figure4_taxonomy_distribution.png}
-    \caption{Distribution of hallucination types in naturally generated (C3) descriptions. Contextual Confabulation (CC) dominates at approximately 80\%, with Structural Phantom (SP) occurring rarely (2.4\% of BBBP outputs). This distribution reflects C3 free-generation outputs only; prompt-constrained C4a--c conditions were verified separately and are discussed in the text.}
-    \label{fig:taxonomy}
-\end{figure}
+\subsection{Robustness and Scale Sensitivity}
+To assess the stability of the observed hallucination effects, we conducted multi-seed evaluations for the primary Llama-3.1-8B model ($n=3$ seeds) and preliminary scaling validation using the larger Llama-3.3-70B model (Table~\ref{tab:robustness}).
 
-\subsection{Robustness and Cross-Model Generalization}
-To assess the stability of the observed hallucination effects, we conducted multi-seed evaluations for the Llama-3.1-8B model ($n=3$ seeds) and cross-model validation using the larger Llama-3.3-70B model (Table~\ref{tab:robustness}).
+On the BACE task, the "distributional compression" phenomenon was universally consistent. Both models and all seeds showed a significant degradation of ROC-AUC toward chance level ($0.512 \pm 0.005$ for 8B) when augmented with hallucinations, regardless of the baseline strength. This reinforces our finding that enzymatic property prediction is systematically fragile to semantic perturbations across scales within the evaluated model family.
 
-On the BBBP task, the performance shift from free hallucination (C3) was consistent across seeds ($\sigma = 0.006$), indicating that the effect is reproducible rather than a stochastic artifact. However, the larger Llama-3.3-70B model exhibited a different behavior: while its baseline (C0) performance was substantially higher (0.644), hallucination augmentation degraded its discriminative accuracy (0.549). This suggests that the observed directional shift may be specific to models with lower baseline chemical knowledge, whereas higher-capacity models are more sensitive to fabrication-induced noise.
+On the BBBP task, the directional ROC-AUC shift from free hallucination (C3) was consistent across seeds for the Llama-3.1-8B model ($\sigma = 0.006$). However, initial scale validation with the larger Llama-3.3-70B model revealed a different trend: while its baseline (C0) performance was higher (0.644), hallucination augmentation was associated with performance degradation (0.549). While these limited cross-scale data points (Llama-3.3-70B results are based on a single seed) preclude definitive claims about architectural scaling laws, they suggest that the directional utility of semantic augmentation may be sensitive to the model's baseline representational state.
 
-On the BACE task, the "distributional compression" phenomenon was universally consistent. Both models and all seeds showed a significant degradation of ROC-AUC toward chance level ($0.512 \pm 0.005$) when augmented with hallucinations, regardless of the baseline strength. This reinforces our finding that enzymatic property prediction is systematically fragile to semantic perturbations across LLM architectures.
-
-\input{tables/robustness_tables}
+\input{robustness_tables}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\linewidth]{figures/figure5_scaling_divergence.png}
-    \caption{Architecture-dependent response to hallucination augmentation. Smaller models (8B) exhibit a consistent directional shift on the BBBP task, whereas the larger model (70B) shows reversed sensitivity, with hallucination augmentation associated with performance degradation.}
+    \includegraphics[width=0.8\linewidth]{figure5_scaling_divergence.png}
+    \caption{Performance variance across model scales. While the 8B model exhibits a consistent directional shift on BBBP, initial validation with the 70B model shows reversed sensitivity. BACE performance was consistently degraded across both scales.}
     \label{fig:scaling}
 \end{figure}
+
 \subsection{Generalization Across Task Regimes}
+Bootstrap confidence intervals and formal significance testing are not reported for the extended generalization benchmarks, given their targeted three-condition scope. These results are intended as directional indicators of cross-task consistency rather than primary inferential claims.
+
 To evaluate the task-generalizability of the observed semantic sensitivity, we extended our evaluation to Tox21 (Classification, $N=140$) and ESOL (Regression, $N=173$). 
 
-On the Tox21 toxicity task, we observe a pattern consistent with the BBBP results: while free hallucination (C3) yielded only marginal shifts, prompt-constrained structural augmentation (C4a) produced a directional improvement in ROC-AUC (0.597 vs. 0.576 baseline). Conversely, on the ESOL solubility task (Regression), hallucination augmentation (C3) led to an increase in Root Mean Square Error (RMSE) from 2.05 to 2.32, indicating that semantic fabrication acts as destructive interference in the regression regime, similar to the findings on BACE. These results suggest that the impact of semantic perturbations is fundamentally tied to the task's knowledge requirements rather than the specific mathematical nature (classification vs. regression) of the prediction objective.
+On the Tox21 toxicity task, we observe a pattern consistent with the BBBP results: while free hallucination (C3) yielded only marginal shifts, prompt-constrained structural augmentation (C4a) produced a directional improvement in ROC-AUC (0.597 vs. 0.576 baseline). Conversely, on the ESOL solubility task (Regression), hallucination augmentation (C3) led to an increase in Root Mean Square Error (RMSE) from 2.05 to 2.32. This indicates that semantic fabrication operationally resembles destructive interference in the regression regime, similar to the findings on BACE. These results suggest that the impact of semantic perturbations is fundamentally tied to the task's knowledge requirements rather than the specific mathematical nature (classification vs. regression) of the prediction objective.
+
+\input{generalization_tables}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.65\linewidth]{figure6_reliability_bbbp.png}
+    \caption{Reliability diagram for BBBP across the primary evaluation conditions (C0, C3, C4a).}
+    \label{fig:reliability_bbbp}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.65\linewidth]{figure6_reliability_bace.png}
+    \caption{Reliability diagram (BACE) illustrating the severe calibration failure induced by free hallucination (C3). The curve deviates substantially from the ideal diagonal, reflecting the distributional compression toward $p \approx 0.17$.}
+    \label{fig:reliability}
+\end{figure}

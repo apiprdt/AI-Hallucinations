@@ -37,9 +37,9 @@ def analyze_calibration(json_path):
         "C2_chempriming": "C2",
         "C2b_pure_gibberish": "C2b",
         "C3_hallu_free": "C3",
-        "C4a_SP_intent": "C4a",
-        "C4b_PI_intent": "C4b",
-        "C4c_MF_intent": "C4c"
+        "C4a_hallu_sp": "C4a",
+        "C4b_hallu_pi": "C4b",
+        "C4c_hallu_mf": "C4c"
     }
     
     report = []

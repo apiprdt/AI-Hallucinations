@@ -1,11 +1,10 @@
 % === Core references ===
 
 @article{yuan2025hallucination,
-  title={Can Hallucinations Help? {Boosting} {LLMs} for Drug Discovery},
-  author={Yuan, Shuzhou and Qu, Zhan and Kangen, Ashish Yashwanth and F{\"a}rber, Michael},
+  title={Hallucinations Can Improve Large Language Models in Drug Discovery},
+  author={Yuan, Shuzhou and F{\"a}rber, Michael},
   journal={arXiv preprint arXiv:2501.13824},
-  year={2025},
-  note={ScaDS.AI / TU Dresden}
+  year={2025}
 }
 
 @article{wu2018moleculenet,
@@ -21,11 +20,11 @@
 
 % === LLMs in Chemistry ===
 
-@article{guo2024llm,
-  title={Large language models for chemistry: {A} comprehensive review},
-  author={Guo, Taicheng and others},
-  journal={arXiv preprint arXiv:2402.01439},
-  year={2024}
+@article{guo2023benchmark,
+  title={What can Large Language Models do in chemistry? {A} comprehensive benchmark on eight tasks},
+  author={Guo, Taicheng and Guo, Kehan and Nan, Bozhao and Liang, Zhenwen and Guo, Zhichun and Chawla, Nitesh V. and Wiest, Olaf and Zhang, Xiangliang},
+  journal={arXiv preprint arXiv:2305.18365},
+  year={2023}
 }
 
 @article{ross2022large,
@@ -50,12 +49,14 @@
   publisher={Royal Society of Chemistry}
 }
 
-@article{edwards2022text2mol,
+@inproceedings{edwards2022text2mol,
   title={Text2Mol: Cross-modal molecule retrieval with natural language queries},
   author={Edwards, Carl and Zhai, ChengXiang and Ji, Heng},
-  journal={Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing},
+  booktitle={Proceedings of the 2021 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
   pages={595--607},
-  year={2022}
+  year={2022},
+  publisher={Association for Computational Linguistics},
+  organization={ACL}
 }
 
 % === Molecular ML Methods ===
@@ -97,7 +98,8 @@
   booktitle={Advances in Neural Information Processing Systems},
   volume={34},
   pages={28877--28888},
-  year={2021}
+  year={2021},
+  organization={Curran Associates, Inc.}
 }
 
 % === Drug Discovery ML ===
@@ -142,9 +144,41 @@
 
 @article{ramos2024review,
   title={A review of large language models and autonomous agents in chemistry},
-  author={Ramos, Mayk Caldas and Collison, Christopher J and Schwaller, Philippe},
+  author={Ramos, Mayk Caldas and Collison, Christopher J and White, Andrew D},
   journal={arXiv preprint arXiv:2407.01603},
   year={2024}
+}
+
+@article{bran2024chemcrow,
+  title={Augmenting large language models with chemistry tools},
+  author={Bran, Andres M and Cox, Sam and Schilter, Oliver and Baldassari, Carlo and White, Andrew D and Schwaller, Philippe},
+  journal={Nature Machine Intelligence},
+  volume={6},
+  number={5},
+  pages={525--535},
+  year={2024},
+  publisher={Nature Publishing Group}
+}
+
+@article{polak2024extracting,
+  title={Extracting accurate materials data from research papers with conversational language models and prompt engineering},
+  author={Polak, Maciej P and Morgan, Dane},
+  journal={Nature Communications},
+  volume={15},
+  number={1},
+  pages={1418},
+  year={2024},
+  publisher={Nature Publishing Group}
+}
+
+@article{jimenez2020drug,
+  author  = {Jim{\'e}nez-Luna, Jos{\'e} and Grisoni, Francesca and Schneider, Gisbert},
+  title   = {Drug discovery with explainable artificial intelligence},
+  journal = {Nature Machine Intelligence},
+  year    = {2020},
+  volume  = {2},
+  number  = {10},
+  pages   = {573--584}
 }
 
 % === Reaction Prediction / Retrosynthesis ===
@@ -160,37 +194,29 @@
   publisher={ACS Publications}
 }
 
-@article{liu2024retrosynthesis,
+@article{han2024retrosynthesis,
   title={Retrosynthesis prediction with an iterative string editing model},
-  author={Liu, Yuqiang and Ye, Qingyong and others},
+  author={Han, Yuqiang and Xu, Xiaoyang and Hsieh, Chang-Yu and Ding, Keyan and Xu, Hongxia and Xu, Renjun and Hou, Tingjun and Zhang, Qiang and Chen, Huajun},
   journal={Nature Communications},
   volume={15},
   number={1},
-  pages={1--14},
+  pages={6404},
   year={2024},
   publisher={Nature Publishing Group}
 }
 
 % === RDKit ===
 
-@misc{landrum2016rdkit,
-  title={{RDKit}: Open-source cheminformatics},
-  author={Landrum, Greg},
+@misc{landrum2023rdkit,
+  title={{RDKit}: Open-source cheminformatics, version 2023.09.1},
+  author={Landrum, Greg and others},
   howpublished={\url{https://www.rdkit.org}},
-  year={2016}
+  year={2023}
 }
 
-@article{hao2024hallucination,
-  title={Can {LLMs} Substitute for {SMILES} in Molecular Property Prediction?},
-  author={Hao, Taicheng and others},
-  journal={arXiv preprint arXiv:2406.00873},
-  year={2024}
-}
-
-@misc{yuan2025taxonomy,
-  title={Hallucinations Can Improve Large Language Models in Drug Discovery},
-  author={Yuan, Shuzhou and F{\"a}rber, Michael},
-  year={2025},
-  howpublished={arXiv:2501.13824},
-  note={Preprint}
+@article{chen2023llm4mol,
+  title={Can Large Language Models Empower Molecular Property Prediction?},
+  author={Chen, Qian and Tang, Huayi and Yang, Zhirui and Liang, Hong and Liu, Yong},
+  journal={arXiv preprint arXiv:2307.07443},
+  year={2023}
 }
