@@ -121,7 +121,7 @@ ax.text(10.75, 2.0, 'task-dependent\n& scale-dependent', ha='center', va='center
     fontsize=8, fontweight='bold', color='#8b6914')
 
 # Title bar at top
-ax.text(6.0, 4.7, 'Differential Sensitivity to Semantic Perturbations in LLM-Based Molecular Property Prediction',
+ax.text(6.0, 4.7, 'Semantic Orientation Effects in Zero-Shot LLM Molecular Inference: Task-Dependent Sensitivity and Distributional Compression',
     ha='center', va='center', fontsize=10, fontweight='bold', color=C_FRAME,
     bbox=dict(boxstyle='round,pad=0.4', facecolor='white', edgecolor=C_FRAME, linewidth=1))
 
