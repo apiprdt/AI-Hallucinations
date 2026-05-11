@@ -80,7 +80,7 @@ ECE partitions the predicted probabilities into $M=10$ equally spaced bins ($B_m
 ECE = \sum_{m=1}^{M} \frac{|B_m|}{N} |acc(B_m) - conf(B_m)|
 \end{equation}
 
-Statistical significance for ROC-AUC differences relative to the baseline (C0) was assessed using a bootstrap paired difference test. Multiple comparisons were corrected using the Benjamini-Hochberg procedure. We also report Cohen's $d$ on the raw prediction score distributions to quantify the shift in model confidence induced by semantic perturbations.
+Statistical significance for ROC-AUC differences relative to the baseline (C0) was assessed using a bootstrap paired difference test. Multiple comparisons were corrected using the Benjamini-Hochberg procedure (hereafter $p_{\text{BH}}$). We also report Cohen's $d$ on the raw prediction score distributions to quantify the shift in model confidence induced by semantic perturbations.
 
 \subsection{Preliminary Scaling Exploration}
 \label{sec:implementation_robustness}
