@@ -39,11 +39,7 @@ All prediction queries use a fixed zero-shot prompt template:
 \end{quote}
 
 The augmentation line is omitted for C0. The task description is ``penetrate the blood-brain barrier'' for BBBP and ``inhibit the BACE-1 enzyme'' for BACE. For the extended generalization benchmarks, the task 
-descriptions were: ``exhibit toxicity in the NR-AR 
-assay'' for Tox21 (first task column), and ``provide 
-a water solubility (logS) value consistent with the 
-molecule's structure'' for ESOL. All other prompt 
-elements remained identical to the primary ablation. The numerical output was deterministically extracted, with malformed responses defaulting to 0.5.
+descriptions were: ``exhibit toxicity in the NR-AR assay'' for Tox21 (selected as a representative nuclear receptor assay to provide a mechanistic contrast to the enzymatic reasoning required for BACE), and ``provide a water solubility (logS) value consistent with the molecule's structure'' for ESOL. For ESOL, the task was framed as a binary classification of solubility status to maintain prompt consistency; RMSE was subsequently calculated on scaled pseudo-probabilities as a relative sensitivity probe. All other prompt elements remained identical to the primary ablation. The numerical output was deterministically extracted, with malformed responses defaulting to 0.5.
 
 \subsection{Implementation Details}
 \label{sec:implementation}
@@ -87,11 +83,11 @@ ECE = \sum_{m=1}^{M} \frac{|B_m|}{N} |acc(B_m) - conf(B_m)|
 
 Statistical significance for ROC-AUC differences relative to the baseline (C0) was assessed using a bootstrap paired difference test. Multiple comparisons were corrected using the Benjamini-Hochberg procedure. We also report Cohen's $d$ on the raw prediction score distributions to quantify the shift in model confidence induced by semantic perturbations.
 
-\subsection{Robustness and Cross-Model Validation}
+\subsection{Preliminary Scaling Exploration}
 \label{sec:implementation_robustness}
-To ensure the stability of our findings, we performed two additional validation steps:
+To assess whether the observed phenomena persist across model scales, we performed two preliminary exploration steps:
 \begin{enumerate}
-    \item \textbf{Multi-Seed Evaluation:} For the primary Llama-3.1-8B model, we repeated the prediction protocol for conditions C0 and C3 across three independent runs using different inference seeds (42, 123, 777) to calculate mean performance and standard deviation.
-    \item \textbf{Cross-Model Generalization:} To verify if the observed phenomena generalize across model scales, we executed the prediction protocol for C0 and C3 on the larger \texttt{Llama-\allowbreak 3.3-\allowbreak 70B-\allowbreak Versatile} model.
+    \item \textbf{Multi-Seed Stability (8B):} For the primary Llama-3.1-8B model, we repeated the prediction protocol for conditions C0 and C3 across three independent runs (seeds 42, 123, 777) to observe performance variance.
+    \item \textbf{Pilot Scale Exploration (70B):} To observe behavior at a larger scale, we executed the prediction protocol for C0 and C3 on the \texttt{Llama-\allowbreak 3.3-\allowbreak 70B-\allowbreak Versatile} model.
 \end{enumerate}
-This multi-layered approach was designed to distinguish systematic semantic effects from stochastic artifacts or model-specific quirks.
+This exploration was designed to distinguish systematic semantic effects from model-specific quirks at the 8B scale.
