@@ -18,7 +18,7 @@ This study has several important limitations that constrain the generalizability
 
 \subsubsection*{API non-determinism.} Despite setting temperature $= 0.0$ and seed $= 42$, Groq's API documentation notes that seed-based reproducibility is provided on a best-effort basis. Exact numerical reproducibility across runs is therefore not guaranteed.
 
-\subsubsection*{ESOL proxy framing.} The ESOL zero-shot prompt utilized a qualitative proxy framing (asking the LLM to predict the probability of ``having low aqueous solubility'') rather than direct scalar regression of logS values. Consequently, the reported RMSE measures the divergence of this pseudo-probability against scaled target values. This methodological choice restricts the interpretation of the ESOL results to directional trends in regression rather than absolute solubility error.
+\subsubsection*{ESOL Task Framing.} Our ESOL evaluation used a zero-shot regression prompt. However, as LLMs are typically optimized for categorical text output rather than high-precision scalar regression, the reported RMSE reflects the inherent limitations of zero-shot regression in the absence of specialized prompting or fine-tuning. These values should be interpreted as a relative measure of semantic sensitivity across augmentation conditions rather than an absolute measure of solubility prediction accuracy.
 
 \subsubsection*{Dataset scope.}
 The primary nine-condition ablation was conducted on two 
