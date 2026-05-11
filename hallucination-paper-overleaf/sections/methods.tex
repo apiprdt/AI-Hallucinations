@@ -38,8 +38,7 @@ All prediction queries use a fixed zero-shot prompt template:
 \texttt{Respond with ONLY a number between 0 and 1. Nothing else.}
 \end{quote}
 
-The augmentation line is omitted for C0. The task description is ``penetrate the blood-brain barrier'' for BBBP and ``inhibit the BACE-1 enzyme'' for BACE. For the extended generalization benchmarks, the task 
-descriptions were: ``exhibit toxicity in the NR-AR assay'' for Tox21 (selected as a representative nuclear receptor assay to provide a mechanistic contrast to the enzymatic reasoning required for BACE), and ``provide a water solubility (logS) value consistent with the molecule's structure'' for ESOL. For ESOL, the task was framed as a binary classification of solubility status to maintain prompt consistency; RMSE was subsequently calculated on scaled pseudo-probabilities as a relative sensitivity probe. All other prompt elements remained identical to the primary ablation. The numerical output was deterministically extracted, with malformed responses defaulting to 0.5.
+The augmentation line is omitted for C0. The task description is ``penetrate the blood-brain barrier'' for BBBP and ``inhibit the BACE-1 enzyme'' for BACE. For the extended generalization benchmarks, the task descriptions were: ``exhibit toxicity in the NR-AR assay'' for Tox21 (selected as a representative nuclear receptor assay to provide a mechanistic contrast to the enzymatic reasoning required for BACE), and ``provide a water solubility (logS) value consistent with the molecule's structure'' for ESOL. For ESOL, the task was framed as log-solubility regression; RMSE was calculated directly on the predicted numerical values extracted from LLM responses. All other prompt elements remained identical to the primary ablation. The numerical output was deterministically extracted, with malformed responses defaulting to 0.5 for classification tasks and 0.0 for regression.
 
 \subsection{Implementation Details}
 \label{sec:implementation}
