@@ -16,7 +16,8 @@ focused on structural features but failed to satisfy the strict
 Structural Phantom definition (i.e., referencing absent 
 elements). Despite this taxonomic non-compliance, C4a 
 consistently yielded the largest directional ROC-AUC 
-improvements on BBBP and Tox21 while producing results without statistically significant degradation on BACE and ESOL.
+improvements on BBBP and Tox21 while preserving baseline 
+discriminability on BACE and yielding a marginal directional improvement over C0 on ESOL (RMSE: 2.045 vs.\ 2.051).
 
 We frame this pattern as an effect of \textit{semantic conditioning}: the 
 observation that factually non-compliant but topically 
@@ -29,12 +30,7 @@ mechanistic claim about the model's internal processing.
 
 \subsection{Distributional Compression on Enzymatic and 
 Solubility Tasks}
-The consistent performance degradation observed on BACE and ESOL 
-provides evidence that semantic fabrication is not uniformly 
-disruptive but is systematically harmful in specific task 
-regimes. Unlike physicochemical tasks, enzymatic inhibition 
-(BACE) and aqueous solubility (ESOL) appear particularly 
-sensitive to semantic perturbation.
+The consistent performance degradation observed on BACE and ESOL provides evidence that textual augmentation is systematically harmful in specific task regimes, though the effect is modulated by both vocabulary and molecular specificity. Notably, the enzymatic regime appears particularly sensitive to chemical-domain vocabulary presented in a generic, non-molecule-specific context---as evidenced by the significant degradation in C2 ($p_{\text{BH}}=0.011$) and factual C1 ($p_{\text{BH}}=0.011$). Conversely, pure non-chemical gibberish (C2b, $p_{\text{BH}}=0.217$) and molecule-specific structural descriptions (C4a, $p_{\text{BH}}=0.808$) did not induce statistically significant performance loss. This pattern suggests that the disruptive mechanism on enzymatic tasks is primarily driven by domain-relevant but generic contextual noise that displaces the SMILES representation, while specific structural anchoring (C4a) or completely irrelevant register (C2b) is less disruptive. This indicates that while fabrication leads to entropy collapse, distributional noise from generic chemical-rich text is equally disruptive to prediction ranking.
 
 Quantitatively, this is reflected in the calibration metrics 
 reported in Table~\ref{tab:calibration}. Under the C3 
@@ -46,17 +42,14 @@ behavioral pattern, which we term \textit{distributional
 compression}, consists of a collapse of the model's output 
 distribution toward a narrow low-confidence peak near 
 $p \approx 0.17$, regardless of true label. This is distinct 
-from regression toward the class prior (60.5\% positive), 
-indicating a genuine loss of discriminative signal rather 
-than label-frequency anchoring.
+from regression toward the BACE test set's class prior 
+(60.5\% positive), indicating a genuine loss of 
+discriminative signal rather than label-frequency anchoring.
 
-One plausible account is that fabricated enzymatic or 
-solubility claims introduce conflicting contextual signals 
-that override the limited structural information conveyed 
-by the SMILES input, collapsing the model's output toward 
-a non-discriminative state. However, we note that this 
-account remains speculative in the absence of mechanistic 
-investigation.
+One plausible account is that fabricated enzymatic or solubility claims introduce conflicting contextual signals that override the limited structural information conveyed by the SMILES input, collapsing the model's output toward a non-discriminative state. However, we note that this account remains speculative in the absence of mechanistic interpretability analysis. Crucially, the enzymatic regime is sensitive to any textual augmentation that shifts the model's attention away from SMILES-derived features. A notable exception is the prompt-constrained structural condition (C4a), which preserved baseline AUC (0.666 vs.\ 0.674) and substantially improved calibration (ECE: 0.069 vs.\ 0.151). This asymmetry suggests that the structural topic focus of C4a may anchor the model's attention to features that are complementary to SMILES parsing, whereas generic descriptor strings or fabricated claims introduce distributional noise that overwhelms the model's limited enzymatic reasoning capacity.
+
+\subsection{Scaling Divergence and Representational States}
+A critical observation in our scaling exploration (Section~\ref{sec:implementation_robustness}) is the divergence in behavior between Llama-3.1-8B and Llama-3.3-70B on the BBBP task. While the 8B model exhibited directional improvements with structural augmentation, the 70B model showed directional degradation when evaluated on the same textual augmentations. This reversal suggests that the ``utility'' of semantic augmentation is not an intrinsic property of the text itself, but is a function of the model's baseline representational state. If a larger model already captures the necessary structural information from the SMILES input, the addition of textual descriptions (especially those generated by a smaller 8B model) may introduce harmful interference rather than helpful conditioning. This underscores the necessity of task-specific and model-specific calibration when deploying text-augmented molecular reasoning systems.
 
 \subsection{Generalization and Pre-training Artifacts}
 The contrast between BBBP/Tox21 and BACE/ESOL suggests that 

@@ -92,14 +92,15 @@ class HallucinationEngine:
                     results["dominant_type"] = "SP"
                     break
 
-        # 2. Property Inversion (PI)
+        # 2. Property Inversion (PI) — only if SP not already detected
         logp = Descriptors.MolLogP(mol)
-        if logp > 3 and any(k in llm_lower for k in ["water soluble", "hydrophilic", "highly soluble"]):
-            results["property_inversion"] = True
-            results["dominant_type"] = "PI"
-        elif logp < 1 and any(k in llm_lower for k in ["lipophilic", "hydrophobic", "membrane permeable"]):
-            results["property_inversion"] = True
-            results["dominant_type"] = "PI"
+        if not results["structural_phantom"]:
+            if logp > 3 and any(k in llm_lower for k in ["water soluble", "hydrophilic", "highly soluble"]):
+                results["property_inversion"] = True
+                results["dominant_type"] = "PI"
+            elif logp < 1 and any(k in llm_lower for k in ["lipophilic", "hydrophobic", "membrane permeable"]):
+                results["property_inversion"] = True
+                results["dominant_type"] = "PI"
 
         # 3. Mechanism Fabrication (MF)
         common_targets = ['ace2', 'her2', 'egfr', 'vegf', 'p53', 'bcl-2', 'cox-2', 'dopamine', 'serotonin']

@@ -1,0 +1,22 @@
+\begin{table}[ht]
+\centering
+\caption{Complete Shannon Entropy ($H$) and Kullback-Leibler ($D_{KL}$) divergence values across all nine experimental conditions. Values confirm that distributional compression on BACE (marked by $H < 0.7$ and high $D_{KL}$) is isolated to fabrication conditions (C3, C4c) and random derangement (C5), whereas factual descriptors (C1) and chemical priming (C2) induce high divergence without entropy collapse.}
+\label{tab:entropy_all}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Condition} & \multicolumn{2}{c}{\textbf{BBBP}} & \multicolumn{2}{c}{\textbf{BACE}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5}
+ & Entropy ($H$) & $D_{KL}$ vs C0 & Entropy ($H$) & $D_{KL}$ vs C0 \\
+\midrule
+C0 (Baseline) & 0.944 & 0.000 & 0.948 & 0.000 \\
+C1 (Factual) & 0.947 & 0.105 & 0.978 & 16.585 \\
+C2 (Priming) & 0.939 & 0.682 & 0.952 & 16.775 \\
+C2b (Gibberish) & 0.960 & 1.309 & 0.973 & 16.006 \\
+C3 (Free Hallu) & 0.868 & 9.282 & \textbf{0.600} & 16.089 \\
+C4a (Struct.) & 0.932 & 8.318 & 0.931 & 8.327 \\
+C4b (Prop. Inv.) & 0.918 & 5.927 & 0.925 & 11.378 \\
+C4c (Mech. Fab.) & 0.895 & 9.180 & \textbf{0.416} & 15.191 \\
+C5 (Random) & 0.869 & 8.484 & \textbf{0.610} & 14.919 \\
+\bottomrule
+\end{tabular}
+\end{table}

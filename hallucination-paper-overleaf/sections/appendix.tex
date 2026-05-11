@@ -1,9 +1,10 @@
 \section{Appendix}
 \label{sec:appendix}
 
-\subsection{Prompt Templates}
-All prediction tasks used the following zero-shot prompt structure with temperature $= 0.0$, \texttt{max\_tokens} $= 10$, and seed $= 42$:
+\subsection{Prediction Prompt Templates}
+All prediction queries used temperature $= 0.0$, \texttt{max\_tokens} $= 10$, and seed $= 42$. The augmentation line is omitted for C0.
 
+\subsubsection*{Primary Ablation (BBBP, BACE):}
 \begin{verbatim}
 Given this molecule (SMILES: {smiles})
 [Additional information: {augmentation}]
@@ -13,30 +14,54 @@ that this molecule can {task_description}?
 Respond with ONLY a number between 0 and 1.
 Nothing else.
 \end{verbatim}
+Task descriptions: ``penetrate the blood-brain barrier'' (BBBP), ``inhibit the BACE-1 enzyme'' (BACE).
 
-The augmentation line is omitted for C0. Task descriptions used for each benchmark:
-\begin{itemize}
-    \item BBBP: ``penetrate the blood-brain barrier''
-    \item BACE: ``inhibit the BACE-1 enzyme''
-    \item Tox21: ``exhibit toxicity in the nuclear receptor 
-    androgen receptor (NR-AR) assay''
-    \item ESOL: ``provide a water solubility (logS) value consistent 
-    with the molecule's structure''
-\end{itemize}
+\subsubsection*{Extended Benchmark: Tox21 (Classification):}
+\begin{verbatim}
+Given this molecule (SMILES: {smiles})
+[Additional information: {augmentation}]
 
-Hallucination generation used temperature $= 0.9$, \texttt{max\_tokens} $= 150$, with the following type-specific prompts:
+Is this molecule toxic for the NR-AR pathway?
+Respond with ONLY a number representing the
+probability of toxicity (between 0 and 1).
+Nothing else.
+\end{verbatim}
 
-\subsubsection*{C3 (Free Hallucination):}
+\subsubsection*{Extended Benchmark: ESOL (Regression):}
+\begin{verbatim}
+Given this molecule (SMILES: {smiles})
+[Additional information: {augmentation}]
+
+What is the measured log solubility in mols
+per litre for this molecule?
+Respond with ONLY a numerical value (e.g.,
+-2.5). Nothing else.
+\end{verbatim}
+
+Hallucination generation used temperature $= 0.9$, \texttt{max\_tokens} $= 150$, with the following type-specific prompts.
+
+\subsubsection*{Primary Ablation Generation Prompts (BBBP, BACE):}
+
+\textbf{C3 (Free Hallucination):}
 \textit{``You are a speculative chemist. Given SMILES: \{smiles\}. Generate a creative, scientifically-sounding description of this molecule's potential properties and biological mechanisms. Be creative and speculative. Write 2--3 sentences only.''}
 
-\subsubsection*{C4a (Structural Augmentation):}
+\textbf{C4a (Structural Augmentation):}
 \textit{``Given SMILES: \{smiles\}. Describe the structural features, functional groups, and atomic composition. Be specific and speculative.''}
 
-\subsubsection*{C4b (Property Inversion):}
+\textbf{C4b (Property Inversion):}
 \textit{``Given SMILES: \{smiles\}. Describe its solubility, lipophilicity, and membrane permeability with specific values.''}
 
-\subsubsection*{C4c (Mechanism Fabrication):}
+\textbf{C4c (Mechanism Fabrication):}
 \textit{``Given SMILES: \{smiles\}. Hypothesize biological targets and cellular mechanisms. Be specific about protein targets.''}
+
+\subsubsection*{Extended Benchmark Generation Prompts (Tox21, ESOL):}
+\textbf{Note:} The generation prompts for the extended benchmarks were adapted from the primary ablation prompts. While designed to serve the same functional role, the exact phrasing differs, which constitutes a minor methodological confound acknowledged in the main text.
+
+\textbf{C3 (Free Hallucination):}
+\textit{``Provide a detailed scientific description of the molecular structure and properties for the molecule with SMILES: \{smiles\}. Focus on its potential biological interactions and physicochemical characteristics.''}
+
+\textbf{C4a (Structural Augmentation):}
+\textit{``Describe the scaffold and structural features of the molecule with SMILES: \{smiles\}. Mention specific rings, functional groups, and their spatial arrangement.''}
 
 \subsection{Control Condition Templates}
 
